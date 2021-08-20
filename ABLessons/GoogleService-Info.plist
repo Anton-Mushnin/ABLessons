@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>694379074346-n6gaaueuh94tgo8sgv2v1tvnmuv876re.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.694379074346-n6gaaueuh94tgo8sgv2v1tvnmuv876re</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAYSx-Kxr6auEKx0PJX_NAVxm5gURTARZk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>694379074346</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.anton-mushnin.ABLessons</string>
+	<key>PROJECT_ID</key>
+	<string>ablessons-25414</string>
+	<key>STORAGE_BUCKET</key>
+	<string>ablessons-25414.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:694379074346:ios:5ccb57c2e45d1a155f0453</string>
+	<key>DATABASE_URL</key>
+	<string>https://ablessons-25414.firebaseio.com</string>
+</dict>
+</plist>

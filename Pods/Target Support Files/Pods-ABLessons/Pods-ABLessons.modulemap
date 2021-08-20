@@ -1,0 +1,6 @@
+framework module Pods_ABLessons {
+  umbrella header "Pods-ABLessons-umbrella.h"
+
+  export *
+  module * { export * }
+}

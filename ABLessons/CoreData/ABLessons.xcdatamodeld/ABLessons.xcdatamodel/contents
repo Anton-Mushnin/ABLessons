@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H15" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Author" representedClassName="Author" syncable="YES">
+        <attribute name="homepage" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="imageURL" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="courses" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Course" inverseName="ofAuthor" inverseEntity="Course"/>
+    </entity>
+    <entity name="Course" representedClassName="Course" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="lastAccessDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="lessons" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Lesson" inverseName="fromCourse" inverseEntity="Lesson"/>
+        <relationship name="ofAuthor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Author" inverseName="courses" inverseEntity="Author"/>
+    </entity>
+    <entity name="Lesson" representedClassName="Lesson" syncable="YES">
+        <attribute name="completed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="currentScore" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="currentTasksCompleted" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="currentTry" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="firstDue" optional="YES" attributeType="Binary"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isPassedOnce" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isPassedTwice" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="secondDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="thirdDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="fromCourse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Course" inverseName="lessons" inverseEntity="Course"/>
+        <relationship name="submissions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LessonSubmission" inverseName="fromLesson" inverseEntity="LessonSubmission"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LessonTask" inverseName="fromLesson" inverseEntity="LessonTask"/>
+        <relationship name="texts" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="LessonText" inverseName="fromLesson" inverseEntity="LessonText"/>
+    </entity>
+    <entity name="LessonSubmission" representedClassName="LessonSubmission" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="score" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="submissionNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="fromLesson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="submissions" inverseEntity="Lesson"/>
+        <relationship name="taskTries" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="TaskTry" inverseName="fromSubmission" inverseEntity="TaskTry"/>
+    </entity>
+    <entity name="LessonTask" representedClassName="LessonTask" syncable="YES">
+        <attribute name="dictionary" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="textToTranslate" optional="YES" attributeType="String"/>
+        <attribute name="translatedText" optional="YES" attributeType="String"/>
+        <relationship name="fromLesson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="tasks" inverseEntity="Lesson"/>
+        <relationship name="tries" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TaskTry" inverseName="fromTask" inverseEntity="TaskTry"/>
+    </entity>
+    <entity name="LessonText" representedClassName="LessonText" syncable="YES">
+        <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <relationship name="fromLesson" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Lesson" inverseName="texts" inverseEntity="Lesson"/>
+    </entity>
+    <entity name="TaskTry" representedClassName="TaskTry" syncable="YES">
+        <attribute name="coloredAnswerBonus" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="dictationBonus" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="dictionaryBonus" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
+        <attribute name="rightAnswer" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="selfMark" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="translatedText" optional="YES" attributeType="String" defaultValueString=""/>
+        <relationship name="fromSubmission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonSubmission" inverseName="taskTries" inverseEntity="LessonSubmission"/>
+        <relationship name="fromTask" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonTask" inverseName="tries" inverseEntity="LessonTask"/>
+    </entity>
+    <elements>
+        <element name="Author" positionX="-700.6953125" positionY="-323.3828125" width="128" height="133"/>
+        <element name="Course" positionX="-691.31640625" positionY="-229.5" width="128" height="118"/>
+        <element name="Lesson" positionX="-469.66796875" positionY="-300.74609375" width="128" height="298"/>
+        <element name="LessonSubmission" positionX="-708.2734375" positionY="19.5625" width="128" height="118"/>
+        <element name="LessonTask" positionX="-239.7890625" positionY="-110.31640625" width="128" height="148"/>
+        <element name="LessonText" positionX="-260.08203125" positionY="-293.453125" width="128" height="88"/>
+        <element name="TaskTry" positionX="-460.55859375" positionY="34.19140625" width="128" height="178"/>
+    </elements>
+</model>
