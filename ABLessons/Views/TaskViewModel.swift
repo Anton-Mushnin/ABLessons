@@ -76,7 +76,9 @@ class TaskViewModel: ObservableObject {
   func forward() -> Bool {
     taskTry.rightAnswer = isAnswerRight()
     submission.addToTaskTries(taskTry)
-
+    if currentTask == 0 {
+      lesson.addToSubmissions(submission)
+    }
     if currentTask + 1 < lesson.lessonTasksArray.count {
       do {
         try context.save()
@@ -93,7 +95,6 @@ class TaskViewModel: ObservableObject {
       return true
     } else {
       submission.calculateScore()
-      lesson.addToSubmissions(submission)
       lesson.markCompleted(context: context) //context.save()'s there
       return false
     }
