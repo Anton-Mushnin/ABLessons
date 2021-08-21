@@ -17,4 +17,4 @@ App remindes to repeat lessons twice: after three and seven days.
 
 
 
-![](ABLessons_app.gif)
+![](ABLessons.gif)
