@@ -39,7 +39,7 @@ struct LessonListRow: View {
         Text(lesson.title!).font(.callout)
       }
       .isDetailLink(true)
- //     .disabled(lesson.texts!.count == 0)
+      .disabled(lesson.texts!.count == 0)
   }
 }
 
