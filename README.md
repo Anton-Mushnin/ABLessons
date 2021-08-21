@@ -15,4 +15,6 @@ Student can (and encouraged to) input his answer by the voice. App checks the an
 
 App remindes to repeat lessons twice: after three and seven days.
 
-![](ABLessons_app.gif | width = 253)
+
+
+![](ABLessons_app.gif)
