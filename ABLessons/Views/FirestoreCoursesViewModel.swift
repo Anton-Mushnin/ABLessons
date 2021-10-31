@@ -164,6 +164,82 @@ class FirestoreCoursesViewModel: ObservableObject {
   }
   
   
+  
+  public func loadCourse() {
+    var loadingFinished = false
+    var fsLessons = [FSLesson]()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+      if !loadingFinished {
+        self.isDataLoading = true
+      }
+    }
+    let course = getCourse()
+    let author = getAuthor(course: course)
+    author.addToCourses(course)
+    
+    if collection.count == 0 {
+      self.saveContext()
+      withAnimation {
+        success = true
+        isDataLoading = false
+      }
+    }
+    //the function called on the last level only so it's assumed path is for lessons
+    db.collection(path).getDocuments { [unowned self] (querySnapshot, error) in
+      if let error = error {
+        print("Error: \(error.localizedDescription)")
+      }
+      if let querySnapshot = querySnapshot {
+          fsLessons = querySnapshot.documents.compactMap { document -> FSLesson? in
+            try? document.data(as: FSLesson.self)
+          }
+        for (fsLesson) in fsLessons {
+          print(fsLesson.tasks?.count)
+          print(fsLesson.id)
+          if !isLessonExists(id: fsLesson.id!) {
+            let lesson = Lesson(context: moc)
+            lesson.title = fsLesson.title
+            lesson.id = fsLesson.id
+            lesson.order = Int16(fsLesson.order)
+            course.addToLessons(lesson)
+            if let texts = fsLesson.texts {
+              for (fsLessonText) in texts {
+                let lessonText = LessonText(context: self.moc)
+                lessonText.text = fsLessonText.text
+                lessonText.order = Int16(fsLessonText.order)
+                lesson.addToTexts(lessonText)
+              }
+            }
+            if let tasks = fsLesson.tasks {
+              print("Tasks is here")
+              for (fsLessonTask) in tasks {
+                let lessonTask = LessonTask(context: self.moc)
+                lessonTask.textToTranslate = fsLessonTask.textToTranslate
+                lessonTask.translatedText = fsLessonTask.translatedText
+                lessonTask.dictionary = fsLessonTask.dictionary
+                lessonTask.order = Int16(fsLessonTask.order)
+                if let dic = lessonTask.dictionary {
+                  let replaced = dic.replacingOccurrences(of: "<br>", with: "\n")
+                  lessonTask.dictionary = replaced
+                }
+                lesson.addToTasks(lessonTask)
+              }
+            }
+          }
+        }
+        self.saveContext()
+        withAnimation {
+          success = true
+          isDataLoading = false
+          loadingFinished = true
+        }
+      }
+    }
+  }
+    
+  
+  
+  
   public func addToCoreData() {
     isDataLoading = true
     

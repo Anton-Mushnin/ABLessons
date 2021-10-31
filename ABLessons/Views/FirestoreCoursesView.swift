@@ -38,7 +38,8 @@ struct FirestoreCoursesView: View {
         ToolbarItemGroup(placement: .navigationBarTrailing) {
           if store.isLastLevel {
             Button(action: {
-              self.store.addToCoreData()
+              //self.store.addToCoreData()
+              self.store.loadCourse()
             }) {
               Image(systemName: "tray.and.arrow.down")
             }
