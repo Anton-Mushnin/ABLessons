@@ -194,8 +194,6 @@ class FirestoreCoursesViewModel: ObservableObject {
             try? document.data(as: FSLesson.self)
           }
         for (fsLesson) in fsLessons {
-          print(fsLesson.tasks?.count)
-          print(fsLesson.id)
           if !isLessonExists(id: fsLesson.id!) {
             let lesson = Lesson(context: moc)
             lesson.title = fsLesson.title
