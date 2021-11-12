@@ -194,6 +194,18 @@ class FirestoreCoursesViewModel: ObservableObject {
             try? document.data(as: FSLesson.self)
           }
         for (fsLesson) in fsLessons {
+          
+//          let newPath = "/authors/WrPCZrHHo1VgTEvJxfwO/courses/0swJI50shPuXmjSWEntw/lessons/"
+//          do {
+//            var newLesson = fsLesson
+//            newLesson.order = 109 - fsLesson.order
+//            _ = try db.collection(newPath).addDocument(from: newLesson)
+//          } catch {
+//            fatalError("Unable to add lesson: \(error.localizedDescription).")
+//          }
+//
+          
+          
           if !isLessonExists(id: fsLesson.id!) {
             let lesson = Lesson(context: moc)
             lesson.title = fsLesson.title
@@ -209,7 +221,6 @@ class FirestoreCoursesViewModel: ObservableObject {
               }
             }
             if let tasks = fsLesson.tasks {
-              print("Tasks is here")
               for (fsLessonTask) in tasks {
                 let lessonTask = LessonTask(context: self.moc)
                 lessonTask.textToTranslate = fsLessonTask.textToTranslate

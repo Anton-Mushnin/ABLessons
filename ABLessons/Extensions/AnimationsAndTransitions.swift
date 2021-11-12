@@ -22,7 +22,7 @@ extension Animation {
     Animation.spring(response: 1, dampingFraction: 0.3,
                      blendDuration: 0.5)
       .speed(3)
-      .delay(1.3 + 0.4 * Double(index))
+      .delay(2 + 0.4 * Double(index))
     }
 }
 

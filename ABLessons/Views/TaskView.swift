@@ -104,7 +104,7 @@ struct TaskView: View {
                 done = true
               }
             }) {
-                 CheckAnswerView(viewModel: viewModel)
+            CheckAnswerView(viewModel: viewModel, selfMark: viewModel.stars)
                }
         }
       }

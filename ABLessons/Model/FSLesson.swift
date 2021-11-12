@@ -16,8 +16,8 @@ import FirebaseFirestoreSwift
 struct FSLesson: Codable {
   @DocumentID var id: String?
   var order = 0//: Int
-  var tasksNumber = 0//: Int
-  var textsNumber = 0//: Int
+  var tasksNumber: Int? = 0//: Int
+  var textsNumber: Int? = 0//: Int
   var title = ""//: String
   var tasks: [FSLessonTask]?
   var texts: [FSLessonText]?
