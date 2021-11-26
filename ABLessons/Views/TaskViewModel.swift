@@ -76,6 +76,7 @@ class TaskViewModel: ObservableObject {
   func forward() -> Bool {
     taskTry.rightAnswer = isAnswerRight()
     submission.addToTaskTries(taskTry)
+    print(taskTry.selfMark)
     if currentTask == 0 {
       lesson.addToSubmissions(submission)
     }
@@ -112,6 +113,7 @@ class TaskViewModel: ObservableObject {
       return 0
     }
   }
+  
   
   func isAnswerRight() -> Bool {
     let wordsFromAnswer = words(text: translatedText)

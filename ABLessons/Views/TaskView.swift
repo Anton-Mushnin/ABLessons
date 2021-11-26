@@ -99,13 +99,13 @@ struct TaskView: View {
             .frame(maxWidth: .infinity, minHeight: CGFloat(75))
             .background(Color(.foregroundColor))
           }.buttonStyle(PlainButtonStyle())
-           .sheet(isPresented: $isShowingRightAnswer, onDismiss: {
+           .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
               if !viewModel.forward() {
                 done = true
               }
             }) {
             CheckAnswerView(viewModel: viewModel, selfMark: viewModel.stars)
-               }
+           }
         }
       }
       

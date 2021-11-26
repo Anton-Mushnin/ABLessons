@@ -9,6 +9,59 @@ import Foundation
 import SwiftUI
 
 
+struct TaskItemView: View {
+  @State var title: String
+  @State var text: String
+  var body: some View {
+    Text(title).foregroundColor(.fontColor)
+  //  Rectangle().fill(Color.clear)//.frame(height: 5)
+    Text(text).font(.body)//.padding(5)
+    Divider()
+  }
+}
+
+
+struct StarsView: View {
+  @Binding var stars: Int
+  @Binding var animation: Bool
+  var body: some View {
+    HStack {
+      Spacer()
+      ZStack {
+        HStack {
+          ForEach(1...5, id: \.self) { index in
+            starImage(systemName: "star").onTapGesture {
+              withAnimation() {
+                stars = index
+              }
+            }
+          }
+        } // empty stars
+        HStack {
+          if stars > 0 {
+            ForEach(1...stars, id: \.self) { index in
+              starImage(systemName: "star.fill")
+                .scaleEffect(animation ? 1 : 0.1)
+                .animation(.stars(index: Int(index)))
+                .onTapGesture {
+                    self.stars = index
+                }
+            }
+          }//earned stars
+          if stars < 5 {
+            ForEach((stars + 1)...5, id: \.self) { _ in
+              starImage(systemName: "star.fill")
+                .opacity(0)
+            }
+          } //invisible stars for alignment
+        } //filled stars
+      }
+      Spacer()
+    }
+  }
+}
+
+
 struct CheckAnswerView: View {
   @Environment(\.presentationMode) var presentationMode
   var viewModel : TaskViewModel
@@ -17,110 +70,60 @@ struct CheckAnswerView: View {
   
   var body: some View {
     VStack {
-      HStack {
-        Spacer()
-        Capsule()
-          .fill(Color.secondary)
-          .frame(width: 30, height: 3)
-          .padding(10)
-        Spacer()
-      }
-      if viewModel.isAnswerRight() && false {
-        RightAnswerView(viewModel: viewModel)
-      } else {
+//      if viewModel.isAnswerRight() && false {
+//        RightAnswerView(viewModel: viewModel)
+//      } else {
+      
+      Rectangle().fill(Color.clear).frame(height: 20)
+   //   Rectangle().fill(Color.foregroundColor).frame(height: 37).edgesIgnoringSafeArea(.horizontal)
+  //    Rectangle().fill(Color.clear).frame(height: 15)
+      
         VStack(alignment: .leading) {
-     //     if selfMark == 0 {
+     //     Spacer()
             Group {
-              Text("Задание:").foregroundColor(.fontColor)
-              Text(viewModel.task.textToTranslate!).font(.body)
               Divider()
-              Text("Правильный перевод:").foregroundColor(.fontColor)
-              Text(viewModel.task.translatedText!).font(.body)
-              Divider()
-              Text("Ваш перевод:").foregroundColor(.fontColor)
-              Text(viewModel.taskTry.translatedText!).font(.body)
-              Divider()
-            }.padding(.leading).transition(.offset(y: -300))
-    //      }
+              TaskItemView(title: "Задание:", text: viewModel.task.textToTranslate!)
+              TaskItemView(title: "Правильный перевод:", text: viewModel.task.translatedText!)
+              TaskItemView(title: "Ваш перевод:", text: viewModel.taskTry.translatedText!)
+            }.padding(.leading).padding(.trailing)
           Spacer()
-
           HStack {
             Spacer()
-            if !viewModel.isAnswerRight() {
-              Text("Поставьте себе оценку").foregroundColor(.fontColor).fontWeight(.bold)
-            } else {
-              Text("Верно!").foregroundColor(.fontColor).fontWeight(.bold)
-            }
+            Text(viewModel.isAnswerRight() ? "Верно" : "Поставьте себе оценку")
+              .foregroundColor(.fontColor).fontWeight(.bold)
             Spacer()
           }
-          HStack {
-            Spacer()
-            ZStack {
-              HStack {
-                ForEach(1...5, id: \.self) { index in
-                  starImage(systemName: "star").onTapGesture {
-                    withAnimation() {
-                      self.selfMark = index
-                    }
-                  }
-                }
-              } // empty stars
-              HStack {
-                if selfMark > 0 {
-                  ForEach(1...selfMark, id: \.self) { index in
-                    starImage(systemName: "star.fill")
-                      .scaleEffect(self.animation ? 1 : 0.1)
-                      .animation(.stars(index: Int(index)))
-                      .onTapGesture {
-                          self.selfMark = index
-                      }
-                  }
-                }//earned stars
-                if selfMark < 5 {
-                  ForEach((selfMark + 1)...5, id: \.self) { _ in
-                    starImage(systemName: "star.fill")
-                      .opacity(0)
-                  }
-                } //invisible stars for alignment
-              } //full stars
-            }
-            Spacer()
-          } // Звездочки
+          StarsView(stars: $selfMark, animation: $animation)
           if viewModel.taskTry.dictationBonus {
             HStack {
               Spacer()
-              
-              starImage(systemName: "star.fill")
-                .padding(.top, 20)
+              Image(systemName: "star.fill")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 20, height: 20)
+                .foregroundColor(.foregroundColor)
                 .scaleEffect(self.animation ? 1 : 0.001)
+                .padding(.top, 15)
                 .animation(.bonuses(index: 0))
               Text(" - голосовой ввод!")
                 .font(.body)
-                .padding(.top, 20)
+                .padding(.top, 15)
                 .scaleEffect(self.animation ? 1 : 0.001)
                 .animation(.bonuses(index: 1))
                 .foregroundColor(.fontColor)
-           
               Spacer()
             }
           }
-//          if viewModel.taskTry.dictationBonus {
-//            Text("+ голосовой ввод").padding().foregroundColor(.fontColor)
-//          }
           Spacer()
         }
-      }//VStack
+//      }//VStack
     }.onAppear {
       withAnimation {
-        if self.viewModel.isAnswerRight() {
-        //  viewModel.taskTry.selfMark = Int16(viewModel.stars)
-          selfMark = viewModel.stars
-        }
-        self.animation.toggle()
+          self.animation = true
       }
     }//wrong Answer
     
-    if selfMark > 0 || viewModel.isAnswerRight(){
+ //   if selfMark > 0 || viewModel.isAnswerRight(){
         Button(action: {
           viewModel.taskTry.selfMark = Int16(self.selfMark)
           self.presentationMode.wrappedValue.dismiss()
@@ -131,7 +134,8 @@ struct CheckAnswerView: View {
           .frame(maxWidth: .infinity, minHeight: CGFloat(75))
           .background(Color(.foregroundColor))
         }.buttonStyle(PlainButtonStyle())
-    }
+         .disabled(!(selfMark > 0 || viewModel.isAnswerRight()))
+//    }
   } //body
 } //CheckAnswerView
 
