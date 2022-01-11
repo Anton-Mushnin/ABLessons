@@ -71,7 +71,11 @@ struct TaskView: View {
                 .padding()
             }
           }
-          Divider()
+          
+          if viewModel.translatedText != "" {
+            Divider()
+          }
+          
         }
         Spacer()
 
