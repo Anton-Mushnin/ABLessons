@@ -23,7 +23,8 @@ struct LessonTextView: View {
   
 
   var body: some View {
-    VStack (spacing: 0){
+//    VStack (spacing: 0){
+    ZStack {
       
       NavigationLink(destination: LazyView(TaskView(viewModel: TaskViewModel(lesson: lesson, context: moc))), isActive: $goToTask) {
           EmptyView()
@@ -44,8 +45,8 @@ struct LessonTextView: View {
             }
           }
         }
- 
-      HTMLStringView(htmlContent: LessonTextView.htmlViewStyle + lesson.lessonTextsArray[textIndex].text! + schoolLink + "</div" )
+
+      HTMLStringView(htmlContent: LessonTextView.htmlViewStyle + lesson.lessonTextsArray[textIndex].text! + schoolLink + "</div>" + "<br><br><br><br><br><br>" )
           .padding(.leading, 10)
           .padding(.trailing, 10)
           .padding(.top, 5)
@@ -72,11 +73,25 @@ struct LessonTextView: View {
                 }
               }
             }))
-      
-      if lesson.lessonTextsArray.count > 1 {
-          pageControlView(numberOfPages: lesson.lessonTextsArray.count, currentPage: $textIndex)
-                    .padding()
-      }
+
+
+        VStack {
+          Spacer()
+          if lesson.lessonTextsArray.count > 1 {
+            VisualEffectView(effect: UIBlurEffect(style: .extraLight))
+              .frame(height: 40)
+          }
+        }
+        
+        
+        VStack {
+          Spacer()
+          if lesson.lessonTextsArray.count > 1 {
+              pageControlView(numberOfPages: lesson.lessonTextsArray.count, currentPage: $textIndex)
+                .padding(15)
+          }
+        }
+    
       
     }.onAppear() {
         self.goToTask = false
@@ -99,6 +114,13 @@ struct pageControlView: View {
       }
     }
   }
+}
+
+
+struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }
  
 

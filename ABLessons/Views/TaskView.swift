@@ -41,143 +41,142 @@ struct TaskView: View {
 
   var body: some View {
     
-    VStack(alignment: .leading, spacing: 0) {
-      Group {
-        NavigationLink(destination: LessonSubmissionsView(lesson: viewModel.lesson), isActive: $done) {
-          EmptyView()
-        }.isDetailLink(false).toolbar {
-          ToolbarItem(placement: .navigationBarTrailing) {
-            Text("\(viewModel.currentTask + 1) / \(viewModel.lesson.lessonTasksArray.count)")
-          }
-        }
-                
-        Text(viewModel.task.textToTranslate!)
-          .fixedSize(horizontal: false, vertical: true)
-          .font(.body)
-          .padding()
+    if done {
+      LessonSubmissionsView(lesson: viewModel.lesson)
+    } else {
         
-        Divider()
-
-        if viewModel.showEditor {
-          MultilineTextField("", text: $viewModel.translatedText, onCommit: {
-            self.viewModel.toggleShowEditor()
-          }).padding()
-        } else {
-          if viewModel.showColoredAnswer {
-            viewModel.answerText().padding()
-          } else {
-            Text(viewModel.translatedText)
-              .padding()
-          }
-        }
-        Divider()
-      }
-      Spacer()
-
-      HStack {
-        Spacer()
-        if speechListening || speechRecognizing {
-          if speechRecognizing {
-            ProgressView()
-          } else {
-            icon(systemName: speechListening ? "ear" : "hourglass.bottomhalf.fill")
-          }
-        }
-        Spacer()
-      }
-      Spacer()
-      
-      if viewModel.translatedText != "" && !viewModel.showEditor{
-        HStack {
-          Button(action: {
-            viewModel.taskTry.translatedText = viewModel.translatedText
-            self.isShowingRightAnswer = true
-          }) {
-          Text("Отправить!")
-            .foregroundColor(.white)
-            .font(.title2)
-            .frame(maxWidth: .infinity, minHeight: CGFloat(75))
-            .background(Color(.foregroundColor))
-          }.buttonStyle(PlainButtonStyle())
-           .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
-              if !viewModel.forward() {
-                done = true
+      VStack(alignment: .leading, spacing: 0) {
+        Group {
+                  
+          Text(viewModel.task.textToTranslate!)
+            .fixedSize(horizontal: false, vertical: true)
+            .font(.body)
+            .padding().toolbar {
+              ToolbarItem(placement: .navigationBarTrailing) {
+                Text("\(viewModel.currentTask + 1) / \(viewModel.lesson.lessonTasksArray.count)")
               }
-            }) {
-            CheckAnswerView(viewModel: viewModel, selfMark: viewModel.stars)
-           }
-        }
-      }
-      
-      if viewModel.showDictionary {
-        Text(viewModel.task.dictionary!)
-          .fixedSize(horizontal: false, vertical: true)
-          .transition(.appearAndFade)
-          .font(.body)
-          .padding()
-      }
+            }
+          
+          Divider()
 
-      if !viewModel.showEditor {
-        HStack {
-          Button(action: {
-            if let speechRec = self.speechRec, speechRec.isRunning {
-              speechRec.stop()
-              self.speechListening = false
-              self.speechRecognizing = true
+          if viewModel.showEditor {
+            MultilineTextField("", text: $viewModel.translatedText, onCommit: {
+              self.viewModel.toggleShowEditor()
+            }).padding()
+          } else {
+            if viewModel.showColoredAnswer {
+              viewModel.answerText().padding()
             } else {
-              self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
-                { result, error in
-                    self.speechRecognizing = false
-                    if let error = error {
-                      self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
-                      return
-                    }
-                  self.viewModel.translatedText = result
-                })
-              if self.speechRec != nil {
-                self.speechListening = true
-                self.speechRec!.start()
+              Text(viewModel.translatedText)
+                .padding()
+            }
+          }
+          Divider()
+        }
+        Spacer()
+
+        HStack {
+          Spacer()
+          if speechListening || speechRecognizing {
+            if speechRecognizing {
+              ProgressView()
+            } else {
+              icon(systemName: speechListening ? "ear" : "hourglass.bottomhalf.fill")
+            }
+          }
+          Spacer()
+        }
+        Spacer()
+        
+        if viewModel.translatedText != "" && !viewModel.showEditor{
+          HStack {
+            Button(action: {
+              viewModel.taskTry.translatedText = viewModel.translatedText
+              self.isShowingRightAnswer = true
+            }) {
+            Text("Отправить!")
+              .foregroundColor(.white)
+              .font(.title2)
+              .frame(maxWidth: .infinity, minHeight: CGFloat(75))
+              .background(Color(.foregroundColor))
+            }.buttonStyle(PlainButtonStyle())
+             .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
+                if !viewModel.forward() {
+                  done = true
+                }
+              }) {
+              CheckAnswerView(viewModel: viewModel, selfMark: viewModel.stars)
+             }
+          }
+        }
+        
+        if viewModel.showDictionary {
+          Text(viewModel.task.dictionary!)
+            .fixedSize(horizontal: false, vertical: true)
+            .transition(.appearAndFade)
+            .font(.body)
+            .padding()
+        }
+
+        if !viewModel.showEditor {
+          HStack {
+            Button(action: {
+              if let speechRec = self.speechRec, speechRec.isRunning {
+                speechRec.stop()
+                self.speechListening = false
+                self.speechRecognizing = true
+              } else {
+                self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
+                  { result, error in
+                      self.speechRecognizing = false
+                      if let error = error {
+                        self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
+                        return
+                      }
+                    self.viewModel.translatedText = result
+                  })
+                if self.speechRec != nil {
+                  self.speechListening = true
+                  self.speechRec!.start()
+                }
+              }
+            }) {
+              icon(systemName: self.speechListening ? "mic.fill" : "mic")
+            }.alert(isPresented: self.$isShowingPermittionAlert) {
+                Alert(title: Text("This app must have access to speech recognition to work."), message: Text("Please consider updating your settings."), primaryButton: .default(Text("Open settings"), action: {UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                }), secondaryButton: .cancel())
+            }
+            Spacer()
+            
+            Button(action: {
+              self.viewModel.toggleShowEditor()
+            }) {
+              icon(systemName: viewModel.showEditor ? "pencil.circle.fill" : "pencil.circle")
+            }.disabled(speechListening || speechRecognizing)
+
+            if isDictionaryAvailable {
+              Spacer()
+              Button(action : {
+                  withAnimation {
+                    self.viewModel.toggleShowDictionary()
+                  }
+              }) {
+                icon(systemName: self.viewModel.showDictionary ? "book.fill" : "book")
               }
             }
-          }) {
-            icon(systemName: self.speechListening ? "mic.fill" : "mic")
-          }.alert(isPresented: self.$isShowingPermittionAlert) {
-              Alert(title: Text("This app must have access to speech recognition to work."), message: Text("Please consider updating your settings."), primaryButton: .default(Text("Open settings"), action: {UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-              }), secondaryButton: .cancel())
-          }
-          Spacer()
-          
-          Button(action: {
-            self.viewModel.toggleShowEditor()
-          }) {
-            icon(systemName: viewModel.showEditor ? "pencil.circle.fill" : "pencil.circle")
-          }.disabled(speechListening || speechRecognizing)
-
-          if isDictionaryAvailable {
             Spacer()
+            
             Button(action : {
-                withAnimation {
-                  self.viewModel.toggleShowDictionary()
-                }
+              self.viewModel.toggleColoredAnswer()
             }) {
-              icon(systemName: self.viewModel.showDictionary ? "book.fill" : "book")
+              icon(systemName: self.viewModel.showColoredAnswer ? "lightbulb.fill" : "lightbulb")
             }
-          }
-          Spacer()
-          
-          Button(action : {
-            self.viewModel.toggleColoredAnswer()
-          }) {
-            icon(systemName: self.viewModel.showColoredAnswer ? "lightbulb.fill" : "lightbulb")
-          }
-          
-        }.border(Color.gray, width: 1)
-         .background(Color(UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)))
-         .frame(height: 75)
-      }
-    }.padding(0) //VStack
-    .onAppear {
-      print("TaskView")
+            
+          }.border(Color.gray, width: 1)
+           .background(Color(UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)))
+           .frame(height: 75)
+        }
+      }.padding(0) //VStack
     }
   }
       
