@@ -20,10 +20,10 @@ class SpeechRec: ObservableObject {
   @Published private(set) var isRecognizing = false
 
   
-  let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-EN"))
+  let speechRecognizer = SFSpeechRecognizer(locale: Locale(identifier: "en-US"))
   let audioSession = AVAudioSession.sharedInstance()
   let audioEngine = AVAudioEngine()
-  var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
+  let recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
   var recognitionTask: SFSpeechRecognitionTask?
   
   init(showPermittionAlert: Binding<Bool>, onFinished: @escaping (String, Error?) -> Void) {
@@ -35,21 +35,21 @@ class SpeechRec: ObservableObject {
     SFSpeechRecognizer.requestAuthorization { status in
       switch status {
             case .authorized: DispatchQueue.main.async {
-                self.startRecognition()
+              
+              do {
+                try self.startRecognition()
+              } catch let error {
+                print("There was a problem starting recording: \(error.localizedDescription)")
+              }
                     }
             default: self.showPermittionAlert = true
       }
     }
   }
     
-  func startRecognition() {
+  func startRecognition() throws {
     do {
-      recognitionRequest = SFSpeechAudioBufferRecognitionRequest()
-      guard let recognitionRequest = recognitionRequest else {
-        self.recognizedTextFinal = "Какая-то ошибка"
-        self.isRecognizing = false
-        return
-      }
+      recognitionRequest.requiresOnDeviceRecognition = true
       recognitionRequest.shouldReportPartialResults = false;
       
       recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
@@ -68,7 +68,7 @@ class SpeechRec: ObservableObject {
                     
       let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)
       audioEngine.inputNode.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-          recognitionRequest.append(buffer)
+        self.recognitionRequest.append(buffer)
       }
       
       audioEngine.prepare()
@@ -83,9 +83,14 @@ class SpeechRec: ObservableObject {
     }
   }
     
+  func cancelTask() {
+    recognitionTask?.cancel()
+  }
+  
+  
   func stop() {
-    recognitionRequest?.endAudio()
-    recognitionRequest = nil
+    recognitionRequest.endAudio()
+ //   recognitionRequest = nil
     audioEngine.stop()
     audioEngine.inputNode.removeTap(onBus: 0) // Call after audio engine is stopped as it modifies the graph.
     try? audioSession.setActive(false)

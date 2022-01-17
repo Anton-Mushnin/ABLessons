@@ -130,15 +130,6 @@ struct TaskView: View {
                 self.speechListening = false
                 self.speechRecognizing = true
               } else {
-                self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
-                  { result, error in
-                      self.speechRecognizing = false
-                      if let error = error {
-                        self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
-                        return
-                      }
-                    self.viewModel.translatedText = result
-                  })
                 if self.speechRec != nil {
                   self.speechListening = true
                   self.speechRec!.start()
@@ -180,7 +171,18 @@ struct TaskView: View {
            .background(Color(UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)))
            .frame(height: 75)
         }
-      }.padding(0) //VStack
+      }.padding(0).onAppear {
+        self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
+          { result, error in
+              self.speechRecognizing = false
+              if let error = error {
+                self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
+                return
+              }
+            self.viewModel.translatedText = result
+            self.speechRec!.cancelTask()
+          })
+      } //VStack
     }
   }
       
