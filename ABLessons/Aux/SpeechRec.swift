@@ -48,12 +48,13 @@ class SpeechRec: ObservableObject {
   }
     
   func startRecognition() throws {
-    do {
+ //   do {
       recognitionRequest.requiresOnDeviceRecognition = true
       recognitionRequest.shouldReportPartialResults = false;
       
       recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
         guard error == nil, let result = result else {
+          print("error != nil")
           if let onFinished = self.onFinished {
             onFinished("", error)
           }
@@ -76,11 +77,11 @@ class SpeechRec: ObservableObject {
       try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
       try audioEngine.start()
       self.isRunning = true
-    } catch let error {
-        if let onFinished = self.onFinished {
-          onFinished("", error)
-        }
-    }
+//    } catch let error {
+//        if let onFinished = self.onFinished {
+//          onFinished("", error)
+//        }
+ //   }
   }
     
   func cancelTask() {

@@ -175,8 +175,10 @@ struct TaskView: View {
         self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
           { result, error in
               self.speechRecognizing = false
+              print("onFinished")
               if let error = error {
-                self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
+                print("Error: \(error.localizedDescription)")
+             //   self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
                 return
               }
             self.viewModel.translatedText = result
