@@ -14,7 +14,7 @@ struct LessonTextView: View {
   var lesson: Lesson
   @State private var goToTask = false
   @State private var textIndex = 0
-  private static let htmlViewStyle = "<div style = \"font-size: 50px\">"
+  private static let htmlViewStyle = "<div style = \"font-size: 55px\">" //temp. need to adjust for different screens
   @State var schoolLink = ""
   
   var isLastText: Bool {
