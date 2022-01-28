@@ -49,7 +49,7 @@ class SpeechRec: ObservableObject {
     
   func startRecognition() throws {
  //   do {
-      recognitionRequest.requiresOnDeviceRecognition = true
+   //   recognitionRequest.requiresOnDeviceRecognition = true
       recognitionRequest.shouldReportPartialResults = false;
       
       recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
