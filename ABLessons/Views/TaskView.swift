@@ -76,7 +76,7 @@ struct TaskView: View {
             Divider()
           }
           
-        }
+        } //Q&A
         Spacer()
 
         HStack {
@@ -89,7 +89,7 @@ struct TaskView: View {
             }
           }
           Spacer()
-        }
+        }  //Speech Listning/recognition status
         Spacer()
         
         if viewModel.translatedText != "" && !viewModel.showEditor{
@@ -112,7 +112,7 @@ struct TaskView: View {
               CheckAnswerView(viewModel: viewModel, selfMark: viewModel.stars)
              }
           }
-        }
+        } //Отправить button
         
         if viewModel.showDictionary {
           Text(viewModel.task.dictionary!)
@@ -120,7 +120,7 @@ struct TaskView: View {
             .transition(.appearAndFade)
             .font(.body)
             .padding()
-        }
+        } //Dictionary
 
         if !viewModel.showEditor {
           HStack {
@@ -170,8 +170,9 @@ struct TaskView: View {
           }.border(Color.gray, width: 1)
            .background(Color(UIColor(red: 0.969, green: 0.969, blue: 0.969, alpha: 1.0)))
            .frame(height: 75)
-        }
-      }.padding(0).onAppear {
+        } // bottom toolbar
+      }.contentShape(Rectangle())
+      .padding(0).onAppear {
         self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
           { result, error in
               self.speechRecognizing = false
