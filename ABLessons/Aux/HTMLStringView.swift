@@ -21,6 +21,7 @@ struct HTMLStringView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.loadHTMLString(htmlContent, baseURL: nil)
+        let htmlContentNotArial = htmlContent.replacingOccurrences(of: "font-family: Arial", with: "")
+        uiView.loadHTMLString(htmlContentNotArial, baseURL: nil)
     }
 }
