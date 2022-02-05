@@ -64,8 +64,11 @@ struct StarsView: View {
 
 struct CheckAnswerView: View {
   @Environment(\.presentationMode) var presentationMode
-  var viewModel : TaskViewModel
-  @State var selfMark: Int// = 0
+  var task: LessonTask
+  var taskTry: TaskTry
+//  var viewModel : TaskViewModel
+//  @State var selfMark: Int// = 0
+  @State var selfMark = 0
   @State var animation = false
   
   var body: some View {
@@ -82,19 +85,19 @@ struct CheckAnswerView: View {
      //     Spacer()
             Group {
               Divider()
-              TaskItemView(title: "Задание:", text: viewModel.task.textToTranslate!)
-              TaskItemView(title: "Правильный перевод:", text: viewModel.task.translatedText!)
-              TaskItemView(title: "Ваш перевод:", text: viewModel.taskTry.translatedText!)
+              TaskItemView(title: "Задание:", text: task.textToTranslate!)
+              TaskItemView(title: "Правильный перевод:", text: task.translatedText!)
+              TaskItemView(title: "Ваш перевод:", text: taskTry.translatedText)
             }.padding(.leading).padding(.trailing)
           Spacer()
           HStack {
             Spacer()
-            Text(viewModel.isAnswerRight() ? "Верно" : "Поставьте себе оценку")
+            Text(task.isAnswerRight(taskTry: taskTry) ? "Верно" : "Поставьте себе оценку")
               .foregroundColor(.fontColor).fontWeight(.bold)
             Spacer()
           }
           StarsView(stars: $selfMark, animation: $animation)
-          if viewModel.taskTry.dictationBonus {
+          if taskTry.dictationBonus {
             HStack {
               Spacer()
               Image(systemName: "star.fill")
@@ -118,6 +121,9 @@ struct CheckAnswerView: View {
         }
 //      }//VStack
     }.onAppear {
+      if task.isAnswerRight(taskTry: taskTry) {
+        selfMark = 5
+      }
       withAnimation {
           self.animation = true
       }
@@ -125,7 +131,7 @@ struct CheckAnswerView: View {
     
  //   if selfMark > 0 || viewModel.isAnswerRight(){
         Button(action: {
-          viewModel.taskTry.selfMark = Int16(self.selfMark)
+          taskTry.selfMark = Int16(self.selfMark)
           self.presentationMode.wrappedValue.dismiss()
         }) {
         Text("Дальше")
@@ -134,7 +140,7 @@ struct CheckAnswerView: View {
           .frame(maxWidth: .infinity, minHeight: CGFloat(75))
           .background(Color(.foregroundColor))
         }.buttonStyle(PlainButtonStyle())
-         .disabled(!(selfMark > 0 || viewModel.isAnswerRight()))
+         .disabled(!(selfMark > 0))
 //    }
   } //body
 } //CheckAnswerView
@@ -142,56 +148,56 @@ struct CheckAnswerView: View {
 
 
 
-struct RightAnswerView: View {
-  var viewModel: TaskViewModel
-  @State var animation = false
-  
-  var body: some View {
-    VStack (alignment: .center) {
-      Spacer()
-      ZStack {
-        HStack {
-          ForEach(1...5, id: \.self) { _ in
-            starImage(systemName: "star")
-          }
-        } // empty stars
-        HStack {
-          ForEach(1...viewModel.stars, id: \.self) { index in
-            starImage(systemName: "star.fill")
-            .scaleEffect(self.animation ? 1 : 0)
-            .animation(.stars(index: index))
-          } //earned stars
-          if viewModel.stars < 5 {
-            ForEach((viewModel.stars + 1)...5, id: \.self) { _ in
-              starImage(systemName: "star.fill")
-              .opacity(0)
-            }
-          } //invisible stars for alignment
-        } //full stars
-      }
-      if viewModel.taskTry.dictationBonus {
-        Text("Бонус - Голосовой ввод!")
-          .font(.body).fontWeight(.bold)
-          .padding(.top, 30)
-          .scaleEffect(self.animation ? 1 : 0.1)
-          .animation(.bonuses(index: 0))
-          .foregroundColor(.fontColor)
-      }
-      if viewModel.taskTry.dictionaryBonus {
-        Text("Бонус - Без словаря!")
-          .font(.body).fontWeight(.bold)
-          .foregroundColor(.fontColor)
-          .scaleEffect(self.animation ? 1 : 0.1)
-          .animation(.bonuses(index: 1))
-      }
-      Spacer()
-    }.onAppear {
-        withAnimation {
-          self.animation.toggle()
-        }
-      }
-  }
-}
+//struct RightAnswerView: View {
+//  var viewModel: TaskViewModel
+//  @State var animation = false
+//  
+//  var body: some View {
+//    VStack (alignment: .center) {
+//      Spacer()
+//      ZStack {
+//        HStack {
+//          ForEach(1...5, id: \.self) { _ in
+//            starImage(systemName: "star")
+//          }
+//        } // empty stars
+//        HStack {
+//          ForEach(1...viewModel.stars, id: \.self) { index in
+//            starImage(systemName: "star.fill")
+//            .scaleEffect(self.animation ? 1 : 0)
+//            .animation(.stars(index: index))
+//          } //earned stars
+//          if viewModel.stars < 5 {
+//            ForEach((viewModel.stars + 1)...5, id: \.self) { _ in
+//              starImage(systemName: "star.fill")
+//              .opacity(0)
+//            }
+//          } //invisible stars for alignment
+//        } //full stars
+//      }
+//      if viewModel.taskTry.dictationBonus {
+//        Text("Бонус - Голосовой ввод!")
+//          .font(.body).fontWeight(.bold)
+//          .padding(.top, 30)
+//          .scaleEffect(self.animation ? 1 : 0.1)
+//          .animation(.bonuses(index: 0))
+//          .foregroundColor(.fontColor)
+//      }
+//      if viewModel.taskTry.dictionaryBonus {
+//        Text("Бонус - Без словаря!")
+//          .font(.body).fontWeight(.bold)
+//          .foregroundColor(.fontColor)
+//          .scaleEffect(self.animation ? 1 : 0.1)
+//          .animation(.bonuses(index: 1))
+//      }
+//      Spacer()
+//    }.onAppear {
+//        withAnimation {
+//          self.animation.toggle()
+//        }
+//      }
+//  }
+//}
 
 func starImage(systemName: String) -> some View {
   return Image(systemName: systemName)
@@ -201,4 +207,30 @@ func starImage(systemName: String) -> some View {
   .foregroundColor(.yellow)
 }
 
- 
+
+
+//func isAnswerRight(answer: String, ref: String) -> Bool {
+//  let wordsFromAnswer = words(text: answer)
+//  let wordsFromTranslatedText = words(text: ref)
+//  if wordsFromAnswer.count != wordsFromTranslatedText.count {
+//    return false
+//  }
+//  for (index, value) in wordsFromAnswer.enumerated() {
+//        if wordsFromTranslatedText[index] != value {
+//          return false
+//        }
+//  }
+//  return true
+//}
+
+
+//func words(text: String) -> [String.SubSequence] {
+//  let textWithoutNBSP = text.replacingOccurrences(of: " ", with: " ")
+//  var cleanText = textWithoutNBSP.uppercased()
+//  let punctuations: Set<Character> = [",", ".", "!", ";", "\"", "?", "”", "“","'","`","’", "-", "—", "–"]
+//  cleanText.removeAll(where: {punctuations.contains($0)})
+//  return cleanText.split(separator: " ")
+//}
+//
+
+

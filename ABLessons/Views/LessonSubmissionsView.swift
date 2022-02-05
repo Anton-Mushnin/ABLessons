@@ -9,12 +9,13 @@ import SwiftUI
 
 struct LessonSubmissionsView: View {
   
-  var lesson: Lesson
+//  var lesson: Lesson
   @Environment(\.presentationMode) var presentationMode
+  var submissions: [LessonSubmission]
   
     var body: some View {
       List {
-        ForEach(lesson.lessonSubmissionsArray, id: \.date) { submission in
+        ForEach(submissions, id: \.date) { submission in
           HStack {
             Text(dateToString(date: submission.date!))
             Spacer()

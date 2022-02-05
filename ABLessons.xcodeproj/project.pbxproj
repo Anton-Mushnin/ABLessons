@@ -28,6 +28,8 @@
 		8F8316A025B196CF00323AF5 /* Course+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F83168F25B196CF00323AF5 /* Course+CoreDataClass.swift */; };
 		8F8962A8272EB51E005938E8 /* FSLesson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8962A7272EB51E005938E8 /* FSLesson.swift */; };
 		8F8BDDD62588C2F600EDEFDB /* LessonsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8BDDD52588C2F600EDEFDB /* LessonsListViewModel.swift */; };
+		8F90D3FA27A3FAF800019C8D /* LessonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F90D3F927A3FAF700019C8D /* LessonView.swift */; };
+		8F90D3FD27A3FB1700019C8D /* LessonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F90D3FC27A3FB1700019C8D /* LessonViewModel.swift */; };
 		8F95F5ED2518B6A2006CE972 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95F5EC2518B6A2006CE972 /* AppDelegate.swift */; };
 		8F95F5EF2518B6A2006CE972 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F95F5EE2518B6A2006CE972 /* SceneDelegate.swift */; };
 		8F95F5F22518B6A2006CE972 /* ABLessons.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8F95F5F02518B6A2006CE972 /* ABLessons.xcdatamodeld */; };
@@ -44,6 +46,7 @@
 		8FA6ECFC255EBB4900AD4CCF /* FirestoreCoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA6ECFB255EBB4900AD4CCF /* FirestoreCoursesView.swift */; };
 		8FABEEE3257A6B92004F8376 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FABEEE2257A6B92004F8376 /* TaskViewModel.swift */; };
 		8FC80ACA253C49DD007A7970 /* CheckAnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC80AC9253C49DD007A7970 /* CheckAnswerView.swift */; };
+		8FF129ED27A7DC2F009C6EF9 /* LessonTaskExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF129EC27A7DC2F009C6EF9 /* LessonTaskExt.swift */; };
 		8FFE8BF7269B12AD0027DC79 /* TaskTry+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE8BF5269B12AD0027DC79 /* TaskTry+CoreDataClass.swift */; };
 		8FFE8BF8269B12AD0027DC79 /* TaskTry+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE8BF6269B12AD0027DC79 /* TaskTry+CoreDataProperties.swift */; };
 		8FFE8BFD269C315B0027DC79 /* LessonExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFE8BFC269C315A0027DC79 /* LessonExt.swift */; };
@@ -79,6 +82,8 @@
 		8F83169225B196CF00323AF5 /* LessonText+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LessonText+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8F8962A7272EB51E005938E8 /* FSLesson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FSLesson.swift; sourceTree = "<group>"; };
 		8F8BDDD52588C2F600EDEFDB /* LessonsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonsListViewModel.swift; sourceTree = "<group>"; };
+		8F90D3F927A3FAF700019C8D /* LessonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonView.swift; sourceTree = "<group>"; };
+		8F90D3FC27A3FB1700019C8D /* LessonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonViewModel.swift; sourceTree = "<group>"; };
 		8F95F5E92518B6A2006CE972 /* ABLessons.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABLessons.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F95F5EC2518B6A2006CE972 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F95F5EE2518B6A2006CE972 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +102,7 @@
 		8FA6ECFB255EBB4900AD4CCF /* FirestoreCoursesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCoursesView.swift; sourceTree = "<group>"; };
 		8FABEEE2257A6B92004F8376 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
 		8FC80AC9253C49DD007A7970 /* CheckAnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAnswerView.swift; sourceTree = "<group>"; };
+		8FF129EC27A7DC2F009C6EF9 /* LessonTaskExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTaskExt.swift; sourceTree = "<group>"; };
 		8FFB7AD9269CD6790099947C /* ABLessons.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ABLessons.entitlements; sourceTree = "<group>"; };
 		8FFE8BF5269B12AD0027DC79 /* TaskTry+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskTry+CoreDataClass.swift"; sourceTree = "<group>"; };
 		8FFE8BF6269B12AD0027DC79 /* TaskTry+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskTry+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -244,6 +250,8 @@
 				8FC80AC9253C49DD007A7970 /* CheckAnswerView.swift */,
 				8F9C4D082694742C006569A4 /* LessonSubmissionsView.swift */,
 				8F70F7F72698483500744172 /* AuthorImageView.swift */,
+				8F90D3F927A3FAF700019C8D /* LessonView.swift */,
+				8F90D3FC27A3FB1700019C8D /* LessonViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -266,6 +274,7 @@
 				8FFE8C03269C317E0027DC79 /* TaskTryExt.swift */,
 				8FFE8C06269C319C0027DC79 /* LessonSubmissionExt.swift */,
 				8F425A1326A6E6150076B87C /* AuthorExt.swift */,
+				8FF129EC27A7DC2F009C6EF9 /* LessonTaskExt.swift */,
 			);
 			path = "CoreData Extensions";
 			sourceTree = "<group>";
@@ -408,7 +417,9 @@
 				8F95F61E252231F9006CE972 /* LessonTextView.swift in Sources */,
 				8F95F61C25221395006CE972 /* LessonsListView.swift in Sources */,
 				8F8BDDD62588C2F600EDEFDB /* LessonsListViewModel.swift in Sources */,
+				8F90D3FA27A3FAF800019C8D /* LessonView.swift in Sources */,
 				8FFE8C31269C38250027DC79 /* LessonTask+CoreDataProperties.swift in Sources */,
+				8FF129ED27A7DC2F009C6EF9 /* LessonTaskExt.swift in Sources */,
 				8F95F5ED2518B6A2006CE972 /* AppDelegate.swift in Sources */,
 				8F8316A025B196CF00323AF5 /* Course+CoreDataClass.swift in Sources */,
 				8FA07F8125C2FB6500153E05 /* LessonSubmission+CoreDataClass.swift in Sources */,
@@ -425,6 +436,7 @@
 				8F9C4D092694742C006569A4 /* LessonSubmissionsView.swift in Sources */,
 				8F425A1426A6E6150076B87C /* AuthorExt.swift in Sources */,
 				8F8962A8272EB51E005938E8 /* FSLesson.swift in Sources */,
+				8F90D3FD27A3FB1700019C8D /* LessonViewModel.swift in Sources */,
 				8F95F5EF2518B6A2006CE972 /* SceneDelegate.swift in Sources */,
 				8F570D56255EAFF9007259D6 /* FirestoreDocument.swift in Sources */,
 				8F1EECE126CE4C2A0086F233 /* HTMLStringView.swift in Sources */,

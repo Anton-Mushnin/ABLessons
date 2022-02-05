@@ -16,19 +16,28 @@ struct LessonsListView: View {
     List {
       Section(header: Text(viewModel.course.wrappedTitle)) {
         ForEach(viewModel.dueLessons) { lesson in
-          LessonListRow(lesson: lesson)
+          NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))) {
+              Text(lesson.title ?? "").font(.callout)
+            }
+            .isDetailLink(true)
+            .disabled(lesson.texts!.count == 0)
         }.onDelete(perform: deleteDueLesson)
       }
       if !viewModel.completedLessons.isEmpty {
         Section(header: Text("пройдено:").font(.body)) {
           ForEach(viewModel.completedLessons) { lesson in
-            LessonListRow(lesson: lesson)
+            NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))) {
+                Text(lesson.title ?? "").font(.callout)
+              }
+              .isDetailLink(true)
+              .disabled(lesson.texts!.count == 0)
           }.onDelete(perform: deleteCompletedLesson)
         }
       }
     }
     .onAppear {
       viewModel.updateList()
+      print("list view appear")
       }
   }
   
@@ -66,14 +75,14 @@ struct LessonsListView: View {
 
 
 
-struct LessonListRow: View {
-  var lesson: Lesson
-  var body: some View {
-      NavigationLink(destination: LessonTextView(lesson: lesson)) {
-        Text(lesson.title ?? "").font(.callout)
-      }
-      .isDetailLink(true)
-      .disabled(lesson.texts!.count == 0)
-  }
-}
+//struct LessonListRow: View {
+//  var lesson: Lesson
+//  var body: some View {
+//    NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))) {
+//        Text(lesson.title ?? "").font(.callout)
+//      }
+//      .isDetailLink(true)
+//      .disabled(lesson.texts!.count == 0)
+//  }
+//}
 

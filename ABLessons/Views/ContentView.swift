@@ -35,7 +35,7 @@ struct ContentView: View {
             if dueLessons.count > 0 {
               Section(header: Text("Надо повторить:")) {
                 ForEach(dueLessons){ lesson in
-                  NavigationLink(destination: LazyView(LessonTextView(lesson: lesson))) {
+                  NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))){ //LazyView(LessonTextView(lesson: lesson))) {
                     Text(lesson.title!)
                   }
                 }
