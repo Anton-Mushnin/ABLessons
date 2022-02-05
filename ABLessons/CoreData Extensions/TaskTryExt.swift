@@ -10,7 +10,7 @@ import Foundation
 
 extension TaskTry {
   public var wrappedTranslatedText: String {
-    translatedText ?? ""
+    translatedText// ?? ""
   }
   
 
