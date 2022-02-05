@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H15" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17511" systemVersion="19H1519" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Author" representedClassName="Author" syncable="YES">
         <attribute name="homepage" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
@@ -62,12 +62,12 @@
         <attribute name="dictionaryBonus" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="YES"/>
         <attribute name="rightAnswer" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="selfMark" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="translatedText" optional="YES" attributeType="String" defaultValueString=""/>
+        <attribute name="translatedText" attributeType="String" defaultValueString=""/>
         <relationship name="fromSubmission" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonSubmission" inverseName="taskTries" inverseEntity="LessonSubmission"/>
         <relationship name="fromTask" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LessonTask" inverseName="tries" inverseEntity="LessonTask"/>
     </entity>
     <elements>
-        <element name="Author" positionX="-700.6953125" positionY="-323.3828125" width="128" height="133"/>
+        <element name="Author" positionX="-705.36328125" positionY="-363.01953125" width="128" height="133"/>
         <element name="Course" positionX="-691.31640625" positionY="-229.5" width="128" height="118"/>
         <element name="Lesson" positionX="-469.66796875" positionY="-300.74609375" width="128" height="298"/>
         <element name="LessonSubmission" positionX="-708.2734375" positionY="19.5625" width="128" height="118"/>
