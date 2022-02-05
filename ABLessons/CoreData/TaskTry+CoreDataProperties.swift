@@ -21,7 +21,7 @@ extension TaskTry {
     @NSManaged public var dictationBonus: Bool
     @NSManaged public var dictionaryBonus: Bool
     @NSManaged public var rightAnswer: Bool
-    @NSManaged public var translatedText: String?
+    @NSManaged public var translatedText: String
     @NSManaged public var selfMark: Int16
     @NSManaged public var fromSubmission: LessonSubmission?
     @NSManaged public var fromTask: LessonTask?
