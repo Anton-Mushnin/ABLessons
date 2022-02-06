@@ -15,6 +15,7 @@ extension UIColor {
   static let inactiveColor: UIColor = UIColor(named: "inactiveColor")!
   static let gold: UIColor = UIColor(named: "gold")!
   static let trqz: UIColor = UIColor(named: "trqz")!
+  static let recordingRed: UIColor = UIColor(named: "recordingRed")!
 }
 
 extension Color {
@@ -23,6 +24,7 @@ extension Color {
   static let gold: Color = Color(UIColor.gold)
   static let trqz: Color = Color(UIColor.trqz)
   static let foregroundColor: Color = Color(UIColor.foregroundColor)
+  static let recordingRed: Color = Color(UIColor.recordingRed)
 }
 
 

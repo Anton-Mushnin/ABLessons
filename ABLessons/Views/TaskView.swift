@@ -149,7 +149,7 @@ struct TaskView: View {
                        .aspectRatio(contentMode: .fit)
                        .padding(20)
                        .frame(width: 125, height: 125)
-                .foregroundColor(self.speechListening ? .red : Color(.foregroundColor))
+                .foregroundColor(self.speechListening ? Color(.red) : Color(.foregroundColor))
             
 
             }.alert(isPresented: self.$isShowingPermittionAlert) {
