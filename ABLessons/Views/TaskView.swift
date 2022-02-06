@@ -21,6 +21,11 @@ func icon(systemName: String, size: CGFloat = 75) -> some View {
 
 
 
+
+
+
+
+
 struct TaskView: View {
 //  @Environment(\.presentationMode) var presentationMode
 //  @Environment(\.managedObjectContext) var moc
@@ -45,6 +50,9 @@ struct TaskView: View {
   private var isDictionaryAvailable: Bool {
     task!.dictionary != nil
   }
+  
+
+  
   
 //  func toggleShowDictionary() {
 //    if !isAnswerRight() {
@@ -110,7 +118,8 @@ struct TaskView: View {
         else {
           if taskTry.translatedText != "" {
             if showColoredAnswer {
-              Text(taskTry.translatedText).padding()
+              task!.answerText(taskTry: taskTry).padding()
+         //     Text(taskTry.translatedText).padding()
             } else {
               Text(taskTry.translatedText)
                 .padding()
