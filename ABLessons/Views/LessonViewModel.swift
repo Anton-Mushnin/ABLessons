@@ -185,7 +185,7 @@ class LessonViewModel: ObservableObject {
       }
     }
     if stage == .task {
-      toolbarButtonCaption = "\(currentTask + 1)/\(lesson.lessonTasksArray.count)"
+      toolbarButtonCaption = "\(currentTask + 1) / \(lesson.lessonTasksArray.count)"
     }
     if stage == .score {
       toolbarButtonCaption = "Done"
