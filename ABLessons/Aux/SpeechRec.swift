@@ -48,23 +48,14 @@ class SpeechRec: ObservableObject {
   }
     
   func startRecognition() throws {
- //   do {
-   //   recognitionRequest.requiresOnDeviceRecognition = true
       recognitionRequest.shouldReportPartialResults = false;
-      
       recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
         guard error == nil, let result = result else {
-          print("error != nil")
-    //      if let onFinished = self.onFinished {
           self.onFinished("", error)
-    //      }
           return
         }
-        print("recognition error == nil")
         if result.isFinal {
-   //       if let onFinished = self.onFinished {
           self.onFinished(result.bestTranscription.formattedString, nil)
-   //       }
         }
       }
                     
@@ -78,11 +69,6 @@ class SpeechRec: ObservableObject {
       try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
       try audioEngine.start()
       self.isRunning = true
-//    } catch let error {
-//        if let onFinished = self.onFinished {
-//          onFinished("", error)
-//        }
- //   }
   }
     
   func cancelTask() {
@@ -92,7 +78,6 @@ class SpeechRec: ObservableObject {
   
   func stop() {
     recognitionRequest.endAudio()
- //   recognitionRequest = nil
     audioEngine.stop()
     audioEngine.inputNode.removeTap(onBus: 0) // Call after audio engine is stopped as it modifies the graph.
     try? audioSession.setActive(false)
