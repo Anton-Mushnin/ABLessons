@@ -55,6 +55,7 @@ struct LessonView: View {
                     .frame(maxWidth: .infinity, minHeight: CGFloat(75))
                     .background(Color(.foregroundColor))
                   }.buttonStyle(PlainButtonStyle())
+                   .contentShape(Rectangle())
                    .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
                     viewModel.nextTask()
                     readyToSubmit = false
