@@ -58,14 +58,9 @@ struct LessonView: View {
                   }.buttonStyle(PlainButtonStyle())
                    .contentShape(Rectangle())
                    .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
-                    taskViewModel.newTask()// = TaskViewModel()
+                    taskViewModel.newTask()
                     viewModel.nextTask()
-                    readyToSubmit = false
-                   //   if !viewModel.forward() {
-              //      self.done = true
-                   //   }
                     }) {
-            //        Text("CheckAnswerView")
                     CheckAnswerView(task: viewModel.task!, taskTry: viewModel.taskTry)
                    }
                 }
@@ -79,12 +74,10 @@ struct LessonView: View {
        .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
                             .onEnded({ value in
                               if value.translation.width < 0 {
-                                print("before next()")
-                                viewModel.next()
+                                  viewModel.next()
                               }
                               if value.translation.width > 0 {
-                                print("before previous")
-                                viewModel.previous()
+                                  viewModel.previous()
                               }
                             }))
         .toolbar {
@@ -125,8 +118,3 @@ struct VisualEffectView: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
 }
 
-//struct LessonView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LessonView()
-//    }
-//}
