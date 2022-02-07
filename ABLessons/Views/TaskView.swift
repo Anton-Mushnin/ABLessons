@@ -132,8 +132,9 @@ struct TaskView: View {
           }
 
           Button(action : {
-          //  self.viewModel.toggleColoredAnswer()
-            self.toggleColoredAnswer()
+            withAnimation {
+              self.toggleColoredAnswer()
+            }
           }) {
             icon(systemName: viewModel.showColoredAnswer ? "lightbulb.fill" : "lightbulb")
           }
