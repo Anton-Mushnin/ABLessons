@@ -13,6 +13,7 @@ struct LessonView: View {
   @Environment(\.presentationMode) var presentationMode
   @State var isShowingRightAnswer = false
   @State var readyToSubmit = false
+  @StateObject var taskViewModel = TaskViewModel()
   
   
     var body: some View {
@@ -43,8 +44,8 @@ struct LessonView: View {
           if let task = viewModel.task {
             VStack(spacing: 0) {
               
-              TaskView(task: $viewModel.task, taskTry: $viewModel.taskTry, ready: $readyToSubmit)
-              if readyToSubmit {
+              TaskView(task: $viewModel.task, taskTry: $viewModel.taskTry).environmentObject(taskViewModel)//, viewModel: $taskViewModel)
+              if taskViewModel.isAnswerReady {
                 HStack {
                   Button(action: {
                     self.isShowingRightAnswer = true
@@ -57,6 +58,7 @@ struct LessonView: View {
                   }.buttonStyle(PlainButtonStyle())
                    .contentShape(Rectangle())
                    .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
+                    taskViewModel.newTask()// = TaskViewModel()
                     viewModel.nextTask()
                     readyToSubmit = false
                    //   if !viewModel.forward() {

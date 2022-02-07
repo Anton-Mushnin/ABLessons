@@ -15,37 +15,54 @@ class TaskViewModel: ObservableObject {
   @Published var showDictionary = false
   @Published var showColoredAnswer = false
   @Published var showEditor = false
-  @Published var translatedText = ""
+  @Published var isAnswerReady = false
   
-  var lesson: Lesson
-  let context: NSManagedObjectContext
-
-  var taskTry: TaskTry
-  var submission: LessonSubmission
-  
-  var currentTask = 0
-  var task: LessonTask {
-    lesson.lessonTasksArray[currentTask]
+  func newTask() {
+    showDictionary = false
+    showColoredAnswer = false
+    showEditor = false
+    isAnswerReady = false
   }
-
-  var progress: String {
-    "\(currentTask + 1) / \(lesson.lessonTasksArray.count)"
+  
+  func toggleDictionary() {
+    showDictionary.toggle()
   }
   
   
-  init(lesson: Lesson, context: NSManagedObjectContext) {
-    self.context = context
-    self.lesson = lesson
-    taskTry  = TaskTry(context: context)
-    if let lastSubmission = lesson.lessonSubmissionsArray.last, lastSubmission.taskTriesArray.count < lesson.lessonTasksArray.count {
-        submission = lastSubmission
-        currentTask = lastSubmission.taskTriesArray.count
-    } else {
-      submission = LessonSubmission(context: context)
-      submission.date = Date()
-    }
-    taskTry.dictionaryBonus = lesson.lessonTasksArray[currentTask].dictionary != nil
-  }
+  
+  
+}
+//  @Published var translatedText = ""
+  
+//  var lesson: Lesson
+//  let context: NSManagedObjectContext
+//
+//  var taskTry: TaskTry
+//  var submission: LessonSubmission
+//
+//  var currentTask = 0
+//  var task: LessonTask {
+//    lesson.lessonTasksArray[currentTask]
+//  }
+//
+//  var progress: String {
+//    "\(currentTask + 1) / \(lesson.lessonTasksArray.count)"
+//  }
+//
+//
+//  init(lesson: Lesson, context: NSManagedObjectContext) {
+//    self.context = context
+//    self.lesson = lesson
+//    taskTry  = TaskTry(context: context)
+//    if let lastSubmission = lesson.lessonSubmissionsArray.last, lastSubmission.taskTriesArray.count < lesson.lessonTasksArray.count {
+//        submission = lastSubmission
+//        currentTask = lastSubmission.taskTriesArray.count
+//    } else {
+//      submission = LessonSubmission(context: context)
+//      submission.date = Date()
+//    }
+//    taskTry.dictionaryBonus = lesson.lessonTasksArray[currentTask].dictionary != nil
+//  }
  
   
 
@@ -155,7 +172,7 @@ class TaskViewModel: ObservableObject {
 //    }
 //    return text
 //  }
-}
+
 
 //func words(text: String) -> [String.SubSequence] {
 //  let textWithoutNBSP = text.replacingOccurrences(of: " ", with: " ")
