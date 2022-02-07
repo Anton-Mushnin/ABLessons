@@ -131,44 +131,41 @@ struct TaskView: View {
       } //Q&A
       Spacer()
 
-      HStack {
-        Spacer()
- //       if speechListening || speechRecognizing {
-          if speechRecognizing {
-            ProgressView()
-          } else {
-            Button(action: {
-              if let speechRec = self.speechRec, speechRec.isRunning {
-                speechRec.stop()
-                self.speechListening = false
-                self.speechRecognizing = true
-              } else {
-                
-                if self.speechRec != nil {
-                  self.speechListening = true
-                  self.speechRec!.start()
-           //       ready = false
+      if !showEditor {
+        HStack {
+          Spacer()
+            if speechRecognizing {
+              ProgressView().scaleEffect(x: 1.5, y: 1.5)
+            } else {
+              Button(action: {
+                if let speechRec = self.speechRec, speechRec.isRunning {
+                  speechRec.stop()
+                  self.speechListening = false
+                  self.speechRecognizing = true
+                } else {
+                  if self.speechRec != nil {
+                    self.speechListening = true
+                    self.speechRec!.start()
+                  }
                 }
-              }
-            }) {
-             // icon(systemName: self.speechListening ? "mic.circle.fill" : "mic.circle", size: 125)
-    //          icon(systemName: "mic.circle", size: 125).foregroundColor(self.speechListening ? Color(.foregroundColor) : .red)
-              Image(systemName: "mic.circle")
-                       .resizable()
-                       .aspectRatio(contentMode: .fit)
-                       .padding(20)
-                       .frame(width: 125, height: 125)
-                .foregroundColor(self.speechListening ? Color(.red) : Color(.foregroundColor))
-            
+              }) {
+                Image(systemName: "mic")
+                         .resizable()
+                         .aspectRatio(contentMode: .fit)
+                         .padding(20)
+                         .frame(width: 110  , height: 110)
+                  .foregroundColor(self.speechListening ? .red : .foregroundColor)
+              
 
-            }.alert(isPresented: self.$isShowingPermittionAlert) {
-                Alert(title: Text("This app must have access to speech recognition to work."), message: Text("Please consider updating your settings."), primaryButton: .default(Text("Open settings"), action: {UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
-                }), secondaryButton: .cancel())
+              }.alert(isPresented: self.$isShowingPermittionAlert) {
+                  Alert(title: Text("This app must have access to speech recognition to work."), message: Text("Please consider updating your settings."), primaryButton: .default(Text("Open settings"), action: {UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+                  }), secondaryButton: .cancel())
+              }
             }
-          }
-//        }
-        Spacer()
-      }  //Speech Listning/recognition status
+  //        }
+          Spacer()
+        }  //Speech Listning/recognition status
+      }
       Spacer()
       
 //      if taskTry.translatedText != "" && !showEditor{
