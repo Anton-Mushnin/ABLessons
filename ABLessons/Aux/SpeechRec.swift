@@ -12,7 +12,7 @@ import SwiftUI
 
 class SpeechRec: ObservableObject {
   
-  private var onFinished: ((String, Error?) -> Void)?
+  private var onFinished: ((String, Error?) -> Void)
   @Binding var showPermittionAlert: Bool
 
   @Published public var recognizedTextFinal = ""
@@ -55,15 +55,16 @@ class SpeechRec: ObservableObject {
       recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
         guard error == nil, let result = result else {
           print("error != nil")
-          if let onFinished = self.onFinished {
-            onFinished("", error)
-          }
+    //      if let onFinished = self.onFinished {
+          self.onFinished("", error)
+    //      }
           return
         }
+        print("recognition error == nil")
         if result.isFinal {
-          if let onFinished = self.onFinished {
-            onFinished(result.bestTranscription.formattedString, nil)
-          }
+   //       if let onFinished = self.onFinished {
+          self.onFinished(result.bestTranscription.formattedString, nil)
+   //       }
         }
       }
                     
