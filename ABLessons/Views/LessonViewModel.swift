@@ -142,6 +142,7 @@ class LessonViewModel: ObservableObject {
     } else {
       submission.calculateScore()
       lesson.markCompleted(context: context) //context.save()'s there
+      submissions = lesson.lessonSubmissionsArray
       stage = .score
   //    return false
     }
