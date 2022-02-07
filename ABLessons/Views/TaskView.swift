@@ -27,21 +27,13 @@ func icon(systemName: String, size: CGFloat = 75) -> some View {
 
 
 struct TaskView: View {
-//  @Environment(\.presentationMode) var presentationMode
-//  @Environment(\.managedObjectContext) var moc
-//  @StateObject var viewModel: LessonViewModel
-//  @StateObject var taskViewModel: TaskViewModel
   @Binding var task: LessonTask?
   @Binding var taskTry: TaskTry
   @Binding var ready: Bool
   
-  
-  
- // @State var done = false
-  
   @State var speechListening = false
   @State var speechRecognizing = false
-  @State var isShowingRightAnswer = false
+//  @State var isShowingRightAnswer = false
   @State var isShowingPermittionAlert = false
   @State var showEditor = false
   @State var showColoredAnswer = false
@@ -54,26 +46,27 @@ struct TaskView: View {
 
   
   
-//  func toggleShowDictionary() {
-//    if !isAnswerRight() {
-//      taskTry.dictionaryBonus = false
-//    }
-//    showDictionary.toggle()
-//  }
+  func toggleShowDictionary() {
+    if !task!.isAnswerRight(taskTry: taskTry) {
+      taskTry.dictionaryBonus = false
+    }
+    showDictionary.toggle()
+  }
 //
-//  func toggleShowEditor() {
-//    if !isAnswerRight() {
-//      taskTry.dictationBonus = false
-//    }
-//    showEditor.toggle()
-//  }
+  func toggleShowEditor() {
+    if !task!.isAnswerRight(taskTry: taskTry) {
+      taskTry.dictationBonus = false
+    }
+    showEditor.toggle()
+  }
 //
-//  func toggleColoredAnswer() {
-//    if !isAnswerRight() {
-//      taskTry.coloredAnswerBonus = false
-//    }
-//    showColoredAnswer.toggle()
-//  }
+  func toggleColoredAnswer() {
+    if !task!.isAnswerRight(taskTry: taskTry) {
+      taskTry.coloredAnswerBonus = false
+    }
+    showColoredAnswer.toggle()
+  }
+  
 //
 //  func isAnswerRight() -> Bool {
 //    let wordsFromAnswer = words(text: taskTry.translatedText)
@@ -206,7 +199,7 @@ struct TaskView: View {
           
           Button(action: {
             ready = false
-            self.showEditor.toggle()
+            self.toggleShowEditor()
           }) {
             icon(systemName: showEditor ? "pencil.circle.fill" : "pencil.circle")
           }.disabled(speechListening || speechRecognizing)
@@ -215,7 +208,7 @@ struct TaskView: View {
           if isDictionaryAvailable {
             Button(action : {
                 withAnimation {
-                  self.showDictionary.toggle()
+                  self.toggleShowDictionary()
                 }
             }) {
               icon(systemName: self.showDictionary ? "book.fill" : "book")
@@ -225,7 +218,7 @@ struct TaskView: View {
 
           Button(action : {
           //  self.viewModel.toggleColoredAnswer()
-            self.showColoredAnswer.toggle()
+            self.toggleColoredAnswer()
           }) {
             icon(systemName: self.showColoredAnswer ? "lightbulb.fill" : "lightbulb")
           }
@@ -240,7 +233,6 @@ struct TaskView: View {
       self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
         { result, error in
             self.speechRecognizing = false
-            print("onFinished")
             if let error = error {
               print("Error: \(error.localizedDescription)")
            //   self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
