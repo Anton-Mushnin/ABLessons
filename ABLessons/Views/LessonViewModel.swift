@@ -50,8 +50,9 @@ class LessonViewModel: ObservableObject {
     submissions = lesson.lessonSubmissionsArray
     
     if let lastSubmission = lesson.lessonSubmissionsArray.last, lastSubmission.taskTriesArray.count < lesson.lessonTasksArray.count {
-        submission = lastSubmission
-        currentTask = lastSubmission.taskTriesArray.count
+      submission = lastSubmission
+      currentTask = lastSubmission.taskTriesArray.count
+      stage = .task
     } else {
       submission = LessonSubmission(context: context)
     }
