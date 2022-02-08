@@ -13,6 +13,7 @@ struct LessonView: View {
   @Environment(\.presentationMode) var presentationMode
   @State var isShowingRightAnswer = false
   @State var readyToSubmit = false
+  @State var isShowingScoresInfo = false
   @StateObject var taskViewModel = TaskViewModel()
   
   
@@ -68,7 +69,19 @@ struct LessonView: View {
             }
           }
         case .score:
-          LessonSubmissionsView(submissions: viewModel.submissions)
+          VStack(spacing: 0) {
+            LessonSubmissionsView(submissions: viewModel.submissions)
+    //        Spacer()
+            Button(action: {
+              self.presentationMode.wrappedValue.dismiss()
+            }) {
+            Text("Всё!")
+              .foregroundColor(.white)
+              .font(.title2)
+              .frame(maxWidth: .infinity, minHeight: CGFloat(75))
+              .background(Color(.foregroundColor))
+            }.buttonStyle(PlainButtonStyle())
+          }
         }
       }.contentShape(Rectangle())
        .gesture(DragGesture(minimumDistance: 20, coordinateSpace: .local)
@@ -82,11 +95,20 @@ struct LessonView: View {
                             }))
         .toolbar {
           ToolbarItemGroup(placement: .navigationBarTrailing) {
-            Button(viewModel.toolbarButtonCaption) {
-              if !viewModel.toolbarButtonPressed() {
-                self.presentationMode.wrappedValue.dismiss()
+            if viewModel.stage != .score {
+              Button(viewModel.toolbarButtonCaption) {
+                if !viewModel.toolbarButtonPressed() {
+                  self.presentationMode.wrappedValue.dismiss()
+                }
+              }
+            } else {
+              Button(action: {
+                isShowingScoresInfo = true
+              }) {
+                Image(systemName: "info.circle")
               }
             }
+              
           }
         }
        
