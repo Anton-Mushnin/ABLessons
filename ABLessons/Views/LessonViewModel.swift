@@ -43,10 +43,6 @@ class LessonViewModel: ObservableObject {
   }
   
   
-  
-  
-  
-  
   init(lesson: Lesson, context: NSManagedObjectContext) {
     self.context = context
     self.lesson = lesson
@@ -69,18 +65,14 @@ class LessonViewModel: ObservableObject {
     if lesson.lessonTextsArray.count == 1 {
       toolbarButtonCaption = lesson.lessonTasksArray.count > 0 ? "Excersise" : "Done"
     }
-
- //   textToTranslate = lesson.lessonTasksArray[0].textToTranslate ?? ""
   }
   
   
   func next() {
-    
     if stage == .text {
       if self.lesson.lessonTextsArray.count > currentText + 1 {
         currentText += 1
         text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "")
-
       } else {
         if task != nil {
           self.stage = .task
@@ -89,37 +81,12 @@ class LessonViewModel: ObservableObject {
         }
       }
     }
-//    switch stage {
-//    case .text:
-//      if self.lesson.lessonTextsArray.count > currentText + 1 {
-//        currentText += 1
-//        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "")
-//
-//      } else {
-//        if task != nil {
-//          self.stage = .task
-//        }
-//      }
-//    case .task:
-//      //nextTask()
-//      break
-//    case .score:
-//      print("Error - next on the score stage")
-//    }
     setToolbarCaption()
-
   }
   
   func nextTask() {
-//    if lesson.lessonTasksArray.count > currentTask + 1 {
-//      currentTask += 1
-//      task = lesson.lessonTasksArray[currentTask]
-//    } else {
-//      stage = .score
-//    }
     taskTry.rightAnswer = task!.isAnswerRight(taskTry: taskTry) //!.isAnswerRight(taskTry: taskTry)
     submission.addToTaskTries(taskTry)
-  //  print(taskTry.selfMark)
     if currentTask == 0 {
       lesson.addToSubmissions(submission)
     }
@@ -130,28 +97,16 @@ class LessonViewModel: ObservableObject {
         print("Error saving managed object context: \(error)")
       }
       currentTask += 1
-      
       task = lesson.lessonTasksArray[currentTask]
       taskTry = TaskTry(context: context)
-  //    taskTry.dictionaryBonus = lesson.lessonTasksArray[currentTask].dictionary != nil
-  //    translatedText = ""
-  //    showDictionary = false
-  //    showColoredAnswer = false
-  //    showEditor = false
-  //    return true
+      taskTry.dictionaryBonus = lesson.lessonTasksArray[currentTask].dictionary != nil
     } else {
       submission.calculateScore()
       lesson.markCompleted(context: context) //context.save()'s there
       submissions = lesson.lessonSubmissionsArray
       stage = .score
-  //    return false
     }
     setToolbarCaption()
-    
-    
-    
-    
-    
   }
   
   func previous() {
@@ -177,23 +132,18 @@ class LessonViewModel: ObservableObject {
   
   
   func setToolbarCaption() {
-    if stage == .text {
+    switch stage {
+    case .text:
       if lesson.lessonTextsArray.count == currentText + 1 {
         toolbarButtonCaption = lesson.lessonTasksArray.count > 0 ? "Excersise" : "Done"
       } else {
         toolbarButtonCaption = ""
       }
-    }
-    if stage == .task {
+    case .task:
       toolbarButtonCaption = "\(currentTask + 1) / \(lesson.lessonTasksArray.count)"
-    }
-    if stage == .score {
+    case .score:
       toolbarButtonCaption = "Done"
     }
-    
   }
-  
-  
-
   
 }
