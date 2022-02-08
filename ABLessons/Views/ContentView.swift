@@ -36,7 +36,7 @@ struct ContentView: View {
               Section(header: Text("Надо повторить:")) {
                 ForEach(dueLessons){ lesson in
                   NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))){ //LazyView(LessonTextView(lesson: lesson))) {
-                    Text(lesson.title!)
+                    Text(lesson.title ?? "")
                   }
                 }
               }
