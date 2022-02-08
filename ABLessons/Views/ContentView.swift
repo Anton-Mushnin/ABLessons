@@ -54,7 +54,7 @@ struct ContentView: View {
                 .onDelete(perform: delete)
               }
             }
-          }
+          }.background(Color.foregroundColor.ignoresSafeArea())
         }.navigationViewStyle(StackNavigationViewStyle())
       }.onAppear() {
         showLoad = false

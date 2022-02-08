@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 
     UITableView.appearance().tintColor = UIColor.white
-    UITableView.appearance().backgroundColor = UIColor.foregroundColor
+    UITableView.appearance().backgroundColor = .clear//UIColor.foregroundColor
     
     
     // Override point for customization after application launch.

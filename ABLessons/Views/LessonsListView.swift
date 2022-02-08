@@ -34,7 +34,7 @@ struct LessonsListView: View {
           }.onDelete(perform: deleteCompletedLesson)
         }
       }
-    }
+    }.background(Color.foregroundColor.ignoresSafeArea())
     .onAppear {
       viewModel.updateList()
       print("list view appear")
