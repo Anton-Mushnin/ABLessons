@@ -37,8 +37,8 @@ class LessonViewModel: ObservableObject {
   private var submission: LessonSubmission
 
   
-  class func prepareText(text: String) -> String {
-    let preparedText = "<div style = \"font-size: 55px\">" + text.replacingOccurrences(of: "font-family: Arial", with: "") + "</div>" + "<br><br><br><br><br><br>"
+  class func prepareText(text: String, isOneText: Bool) -> String {
+    let preparedText = "<div style = \"font-size: 55px\">" + text.replacingOccurrences(of: "font-family: Arial", with: "") + "</div>" + (!isOneText ? "<br><br><br><br><br><br>" : "")
     return preparedText
   }
   
@@ -46,7 +46,8 @@ class LessonViewModel: ObservableObject {
   init(lesson: Lesson, context: NSManagedObjectContext) {
     self.context = context
     self.lesson = lesson
-    text = LessonViewModel.prepareText(text: lesson.lessonTextsArray[0].text ?? "")
+    text = LessonViewModel.prepareText(text: lesson.lessonTextsArray[0].text ?? "", isOneText: lesson.lessonTextsArray.count > 1)
+    
     submissions = lesson.lessonSubmissionsArray
     
     if let lastSubmission = lesson.lessonSubmissionsArray.last, lastSubmission.taskTriesArray.count < lesson.lessonTasksArray.count {
@@ -73,7 +74,7 @@ class LessonViewModel: ObservableObject {
     if stage == .text {
       if self.lesson.lessonTextsArray.count > currentText + 1 {
         currentText += 1
-        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "")
+        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "", isOneText: true)
       } else {
         if task != nil {
           self.stage = .task
@@ -115,7 +116,7 @@ class LessonViewModel: ObservableObject {
     case .text:
       if currentText > 0 {
         currentText = currentText - 1
-        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "")
+        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "", isOneText: true)
       }
     case .task:
       stage = .text
