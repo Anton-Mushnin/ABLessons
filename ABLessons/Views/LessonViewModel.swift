@@ -78,8 +78,6 @@ class LessonViewModel: ObservableObject {
       } else {
         if task != nil {
           self.stage = .task
-        } else {
-          lesson.markCompleted(context: context)
         }
       }
     }
@@ -124,12 +122,18 @@ class LessonViewModel: ObservableObject {
       break
     }
     setToolbarCaption()
-
   }
   
+  
+  //returns false when view should be dismissed. Called in the .text stage only
   func toolbarButtonPressed() -> Bool {
-    next()
-    return toolbarButtonCaption != "Done"    
+    if task != nil {
+      stage = .task
+      return true
+    } else {
+      lesson.markCompleted(context: context)
+      return false
+    }
   }
   
   
