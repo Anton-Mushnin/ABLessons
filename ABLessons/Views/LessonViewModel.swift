@@ -38,7 +38,7 @@ class LessonViewModel: ObservableObject {
 
   
   class func prepareText(text: String, isOneText: Bool) -> String {
-    let preparedText = "<div style = \"font-size: 55px\">" + text.replacingOccurrences(of: "font-family: Arial", with: "") + "</div>" + (!isOneText ? "<br><br><br><br><br><br>" : "")
+    let preparedText = "<div style = \"font-size: 55px\">" + text.replacingOccurrences(of: "font-family: Arial", with: "") + "</div><br><br>" + (!isOneText ? "<br><br><br><br>" : "")
     return preparedText
   }
   
@@ -46,7 +46,7 @@ class LessonViewModel: ObservableObject {
   init(lesson: Lesson, context: NSManagedObjectContext) {
     self.context = context
     self.lesson = lesson
-    text = LessonViewModel.prepareText(text: lesson.lessonTextsArray[0].text ?? "", isOneText: lesson.lessonTextsArray.count > 1)
+    text = LessonViewModel.prepareText(text: lesson.lessonTextsArray[0].text ?? "", isOneText: lesson.lessonTextsArray.count < 2)
     
     submissions = lesson.lessonSubmissionsArray
     
@@ -74,7 +74,7 @@ class LessonViewModel: ObservableObject {
     if stage == .text {
       if self.lesson.lessonTextsArray.count > currentText + 1 {
         currentText += 1
-        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "", isOneText: true)
+        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "", isOneText: false)
       } else {
         if task != nil {
           self.stage = .task
@@ -116,7 +116,7 @@ class LessonViewModel: ObservableObject {
     case .text:
       if currentText > 0 {
         currentText = currentText - 1
-        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "", isOneText: true)
+        text = LessonViewModel.prepareText(text: self.lesson.lessonTextsArray[currentText].text ?? "", isOneText: false)
       }
     case .task:
       stage = .text
