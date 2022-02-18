@@ -50,13 +50,18 @@ class SpeechRec: ObservableObject {
   func startRecognition() throws {
       recognitionRequest.shouldReportPartialResults = false;
       recognitionTask = speechRecognizer?.recognitionTask(with: recognitionRequest) { result, error in
-        guard error == nil, let result = result else {
-          self.onFinished("", error)
-          return
-        }
-        if result.isFinal {
-          self.onFinished(result.bestTranscription.formattedString, nil)
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 20) { //testing waiting messages
+
+          self.isRecognizing = false
+          guard error == nil, let result = result else {
+            self.onFinished("", error)
+            return
+          }
+          if result.isFinal {
+            self.onFinished(result.bestTranscription.formattedString, nil)
+          }
+//        }  //testing waiting messages
+        
       }
                     
       let recordingFormat = audioEngine.inputNode.outputFormat(forBus: 0)

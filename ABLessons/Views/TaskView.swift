@@ -66,13 +66,20 @@ struct TaskView: View {
         HStack {
           Spacer()
             if speechRecognizing {
-              ProgressView().scaleEffect(x: 1.5, y: 1.5)
+              VStack {
+                ProgressView().scaleEffect(x: 1.5, y: 1.5)
+                Text(viewModel.waitingMessage)
+                  .padding(.top, 15)
+                  .font(.footnote)
+              }
             } else {
               Button(action: {
                 if let speechRec = self.speechRec, speechRec.isRunning {
                   speechRec.stop()
                   self.speechListening = false
                   self.speechRecognizing = true
+                  viewModel.isRecognizing = true
+                  viewModel.setWaitingMessage()
                 } else {
                   if self.speechRec != nil {
                     self.speechListening = true
@@ -149,6 +156,7 @@ struct TaskView: View {
       self.speechRec = SpeechRec(showPermittionAlert: self.$isShowingPermittionAlert, onFinished:
         { result, error in
             self.speechRecognizing = false
+            self.viewModel.isRecognizing = false
             if let error = error {
               print("Error: \(error.localizedDescription)")
            //   self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
