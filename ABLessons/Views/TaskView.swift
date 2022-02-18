@@ -83,6 +83,9 @@ struct TaskView: View {
                 } else {
                   if self.speechRec != nil {
                     self.speechListening = true
+                    withAnimation {
+                      self.viewModel.isListening = true
+                    }
                     self.speechRec!.start()
                   }
                 }
@@ -157,6 +160,7 @@ struct TaskView: View {
         { result, error in
             self.speechRecognizing = false
             self.viewModel.isRecognizing = false
+          self.viewModel.isListening = false
             if let error = error {
               print("Error: \(error.localizedDescription)")
            //   self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
@@ -166,6 +170,8 @@ struct TaskView: View {
           self.viewModel.isAnswerReady = result != ""
           self.speechRec!.cancelTask()
         })
+    }.onDisappear {
+      self.speechRec?.stop()
     } //VStack
     
   }

@@ -56,7 +56,8 @@ struct LessonView: View {
                     .font(.title2)
                     .frame(maxWidth: .infinity, minHeight: CGFloat(75))
                     .background(Color(.foregroundColor))
-                  }.buttonStyle(PlainButtonStyle())
+                  }.disabled(taskViewModel.isListening)
+                   .buttonStyle(PlainButtonStyle())
                    .contentShape(Rectangle())
                    .fullScreenCover(isPresented: $isShowingRightAnswer, onDismiss: {
                     taskViewModel.newTask()

@@ -18,6 +18,7 @@ class TaskViewModel: ObservableObject {
   @Published var isAnswerReady = false
   @Published var waitingMessage = ""
   var isRecognizing = false
+  @Published var isListening = false
   var waitingMessagesToPick = waitingMessages
   
   func newTask() {
