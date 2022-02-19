@@ -23,10 +23,8 @@ class LessonViewModel: ObservableObject {
 
   var lesson: Lesson
   let context: NSManagedObjectContext
- // @Environment(\.managedObjectContext) var moc
   @Published var stage = LessonStage.text
   @Published var text: String
-//  @Published var textToTranslate: String
   @Published var currentText = 0
   private var currentTask = 0
   @Published var task: LessonTask?
@@ -85,7 +83,7 @@ class LessonViewModel: ObservableObject {
   }
   
   func nextTask() {
-    taskTry.rightAnswer = task!.isAnswerRight(taskTry: taskTry) //!.isAnswerRight(taskTry: taskTry)
+    taskTry.rightAnswer = task!.isAnswerRight(taskTry: taskTry)
     submission.addToTaskTries(taskTry)
     if currentTask == 0 {
       lesson.addToSubmissions(submission)
@@ -148,7 +146,7 @@ class LessonViewModel: ObservableObject {
     case .task:
       toolbarButtonCaption = "\(currentTask + 1) / \(lesson.lessonTasksArray.count)"
     case .score:
-      toolbarButtonCaption = "Done"
+      break
     }
   }
   
