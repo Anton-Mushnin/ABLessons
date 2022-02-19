@@ -21,7 +21,6 @@ struct LessonView: View {
       VStack {
         switch viewModel.stage {
         case .text:
-          
           ZStack {
             HTMLStringView(htmlContent: viewModel.text)
               .padding(.leading, 10)
@@ -82,6 +81,8 @@ struct LessonView: View {
               .frame(maxWidth: .infinity, minHeight: CGFloat(75))
               .background(Color(.foregroundColor))
             }.buttonStyle(PlainButtonStyle())
+          }.sheet(isPresented: $isShowingScoresInfo) {
+            ScoreInfoView()
           }
         }
       }.contentShape(Rectangle())
@@ -109,10 +110,8 @@ struct LessonView: View {
                 Image(systemName: "info.circle")
               }
             }
-              
           }
         }
-       
     }
 }
 
