@@ -18,6 +18,7 @@
 		8F345399255921F500EFF5A5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8F345398255921F500EFF5A5 /* GoogleService-Info.plist */; };
 		8F34539B2559597100EFF5A5 /* FirestoreCoursesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F34539A2559597100EFF5A5 /* FirestoreCoursesViewModel.swift */; };
 		8F425A1426A6E6150076B87C /* AuthorExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F425A1326A6E6150076B87C /* AuthorExt.swift */; };
+		8F50388D27C01292001D2DB7 /* ScoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F50388C27C0128C001D2DB7 /* ScoreInfoView.swift */; };
 		8F570D56255EAFF9007259D6 /* FirestoreDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F570D55255EAFF9007259D6 /* FirestoreDocument.swift */; };
 		8F70F7F82698483600744172 /* AuthorImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F70F7F72698483500744172 /* AuthorImageView.swift */; };
 		8F83169525B196CF00323AF5 /* Author+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F83168525B196CD00323AF5 /* Author+CoreDataProperties.swift */; };
@@ -72,6 +73,7 @@
 		8F345398255921F500EFF5A5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		8F34539A2559597100EFF5A5 /* FirestoreCoursesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreCoursesViewModel.swift; sourceTree = "<group>"; };
 		8F425A1326A6E6150076B87C /* AuthorExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorExt.swift; sourceTree = "<group>"; };
+		8F50388C27C0128C001D2DB7 /* ScoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreInfoView.swift; sourceTree = "<group>"; };
 		8F570D55255EAFF9007259D6 /* FirestoreDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDocument.swift; sourceTree = "<group>"; };
 		8F70F7F72698483500744172 /* AuthorImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorImageView.swift; sourceTree = "<group>"; };
 		8F83168525B196CD00323AF5 /* Author+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				8F70F7F72698483500744172 /* AuthorImageView.swift */,
 				8F90D3F927A3FAF700019C8D /* LessonView.swift */,
 				8F90D3FC27A3FB1700019C8D /* LessonViewModel.swift */,
+				8F50388C27C0128C001D2DB7 /* ScoreInfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				8F8BDDD62588C2F600EDEFDB /* LessonsListViewModel.swift in Sources */,
 				8F90D3FA27A3FAF800019C8D /* LessonView.swift in Sources */,
 				8FFE8C31269C38250027DC79 /* LessonTask+CoreDataProperties.swift in Sources */,
+				8F50388D27C01292001D2DB7 /* ScoreInfoView.swift in Sources */,
 				8FF129ED27A7DC2F009C6EF9 /* LessonTaskExt.swift in Sources */,
 				8F95F5ED2518B6A2006CE972 /* AppDelegate.swift in Sources */,
 				8F8316A025B196CF00323AF5 /* Course+CoreDataClass.swift in Sources */,
