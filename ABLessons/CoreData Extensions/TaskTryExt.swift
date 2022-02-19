@@ -24,17 +24,18 @@ extension TaskTry {
       }
     }
     
-    if score > 0 {
-      if dictionaryBonus {
-        score += 5
-      }
-      if dictationBonus {
-        score += 5
-      }
-      if coloredAnswerBonus {
-        score += 20
-      }
+
+//    if dictionaryBonus {
+//      score += 5
+//    }
+    
+    if dictationBonus {
+      score += 5
     }
+    if coloredAnswerBonus {
+      score += 20
+    }
+
     return score
   }
   
