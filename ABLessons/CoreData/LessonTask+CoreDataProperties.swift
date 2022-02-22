@@ -17,12 +17,13 @@ extension LessonTask {
     }
 
     @NSManaged public var dictionary: String?
-    @NSManaged public var id: String?
+    @NSManaged public var id: NSUUID
     @NSManaged public var order: Int16
     @NSManaged public var textToTranslate: String?
     @NSManaged public var translatedText: String?
     @NSManaged public var fromLesson: Lesson?
     @NSManaged public var tries: NSSet?
+    @NSManaged public var lastStars: Int16
 
 }
 

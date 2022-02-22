@@ -85,6 +85,25 @@ class LessonViewModel: ObservableObject {
   func nextTask() {
     taskTry.rightAnswer = task!.isAnswerRight(taskTry: taskTry)
     submission.addToTaskTries(taskTry)
+    task!.lastStars = taskTry.selfMark
+
+//    if lesson.minStars > taskTry.selfMark {
+//      lesson.minStars = taskTry.selfMark
+//    }
+    if let min = lesson.tasks?.min(by: {($0 as! LessonTask).lastStars < ($1 as! LessonTask).lastStars}) as! LessonTask? {
+      lesson.minStars = min.lastStars
+    }
+//    var min: Int16 = 6
+//    for task in lesson.lessonTasksArray {
+//      if task.lastStars < min {
+//        min = task.lastStars
+//      }
+//    }
+    
+//    if taskTry.selfMark < (lesson.tasks?.min(by: { ($0 as! LessonTask).lastStars < ($1 as! LessonTask).lastStars}) as! LessonTask).lastStars) {
+//      lesson.minStars = taskTry.selfMark
+//    }
+    
     if currentTask == 0 {
       lesson.addToSubmissions(submission)
     }

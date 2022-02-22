@@ -25,6 +25,7 @@
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isPassedOnce" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="isPassedTwice" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="minStars" attributeType="Integer 16" defaultValueString="6" usesScalarValueType="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="secondDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="thirdDue" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
@@ -43,7 +44,8 @@
     </entity>
     <entity name="LessonTask" representedClassName="LessonTask" syncable="YES">
         <attribute name="dictionary" optional="YES" attributeType="String"/>
-        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lastStars" optional="YES" attributeType="Integer 16" defaultValueString="6" usesScalarValueType="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="textToTranslate" optional="YES" attributeType="String"/>
         <attribute name="translatedText" optional="YES" attributeType="String"/>
@@ -69,10 +71,10 @@
     <elements>
         <element name="Author" positionX="-705.36328125" positionY="-363.01953125" width="128" height="133"/>
         <element name="Course" positionX="-691.31640625" positionY="-229.5" width="128" height="118"/>
-        <element name="Lesson" positionX="-469.66796875" positionY="-300.74609375" width="128" height="298"/>
-        <element name="LessonSubmission" positionX="-708.2734375" positionY="19.5625" width="128" height="118"/>
-        <element name="LessonTask" positionX="-239.7890625" positionY="-110.31640625" width="128" height="148"/>
+        <element name="Lesson" positionX="-469.66796875" positionY="-300.74609375" width="128" height="313"/>
+        <element name="LessonTask" positionX="-239.7890625" positionY="-110.31640625" width="128" height="163"/>
         <element name="LessonText" positionX="-260.08203125" positionY="-293.453125" width="128" height="88"/>
         <element name="TaskTry" positionX="-460.55859375" positionY="34.19140625" width="128" height="178"/>
+        <element name="LessonSubmission" positionX="-504" positionY="-234" width="128" height="118"/>
     </elements>
 </model>

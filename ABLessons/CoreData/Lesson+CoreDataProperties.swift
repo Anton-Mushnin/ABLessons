@@ -33,6 +33,7 @@ extension Lesson {
     @NSManaged public var submissions: NSSet?
     @NSManaged public var tasks: NSSet?
     @NSManaged public var texts: NSSet?
+    @NSManaged public var minStars: Int16
 
 }
 

@@ -223,6 +223,7 @@ class FirestoreCoursesViewModel: ObservableObject {
             if let tasks = fsLesson.tasks {
               for (fsLessonTask) in tasks {
                 let lessonTask = LessonTask(context: self.moc)
+                lessonTask.id = NSUUID()//fsLessonTask.id
                 lessonTask.textToTranslate = fsLessonTask.textToTranslate
                 lessonTask.translatedText = fsLessonTask.translatedText
                 lessonTask.dictionary = fsLessonTask.dictionary
@@ -354,7 +355,7 @@ class FirestoreCoursesViewModel: ObservableObject {
             let textToTranslate = document.data()["textToTranslate"] as? String,
             let translatedText = document.data()["translatedText"] as? String {
               let lessonTask = LessonTask(context: self.moc)
-              lessonTask.id = document.documentID
+            //  lessonTask.id = document.documentID
               lessonTask.textToTranslate = textToTranslate
               lessonTask.translatedText = translatedText
               lessonTask.order = order
