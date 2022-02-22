@@ -36,7 +36,7 @@ class TaskViewModel: ObservableObject {
           waitingMessagesToPick = TaskViewModel.waitingMessages
         }
         
-        if let randomIndex = self.waitingMessagesToPick.indices.randomElement() {
+        if let randomIndex = self.waitingMessagesToPick.indices.randomElement() { //can't imagine nil here but let it
           waitingMessage =  waitingMessagesToPick[randomIndex]
           waitingMessagesToPick.remove(at: randomIndex)
         }
@@ -77,7 +77,7 @@ class TaskViewModel: ObservableObject {
                                         "я думала, проще будет…",
                                         "вы на английском это произнесли?",
                                         "простите, отвлекают...",
-                                        "5... 4... 3... 2... 1...",
+                                        "3... 2... 1...",
                                         "переслушиваю снова и снова...",
                                         "приятный голос у вас...",
                                         "интересные задания вам задают...",
