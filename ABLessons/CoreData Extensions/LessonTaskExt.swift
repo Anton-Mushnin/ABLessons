@@ -32,7 +32,7 @@ extension LessonTask {
   private func words(text: String) -> [String.SubSequence] {
     let textWithoutNBSP = text.replacingOccurrences(of: " ", with: " ")
     var cleanText = textWithoutNBSP.uppercased()
-    let punctuations: Set<Character> = [",", ".", "!", ";", "\"", "?", "”", "“","'","`","’", "-", "—", "–"]
+    let punctuations: Set<Character> = [",", ".", "!", ";", "\"", "?", "”", "“","'","`","’", "-", "—", "–", ":"]
     cleanText.removeAll(where: {punctuations.contains($0)})
     return cleanText.split(separator: " ")
   }
