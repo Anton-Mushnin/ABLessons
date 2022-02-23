@@ -25,31 +25,29 @@ struct FilteredExcercisesListView: View {
 }
 
 struct FilteredLessonsListView: View {
+  @Binding var refreshID: UUID //to refresh parent view
   @Environment(\.managedObjectContext) var moc
 
  // @State var filter: Int
   @FetchRequest var lessonsToRepeat: FetchedResults<Lesson>
-  init(filter: Int) {
+  
+  init(filter: Int, refreshID: Binding<UUID>) {
     _lessonsToRepeat = FetchRequest<Lesson>(entity: Lesson.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Lesson.id, ascending: true)], predicate: NSPredicate(format: "minStars = %i", filter as CVarArg))
+    self._refreshID = refreshID
   }
   
-  
-    var body: some View {
-      ForEach(lessonsToRepeat, id: \.self) { lesson in
-        NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))){
-          Text(lesson.title ?? "")
-        }
+  var body: some View {
+    ForEach(lessonsToRepeat, id: \.self) { lesson in
+      NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))
+                      .onDisappear(perform: {
+                                    withAnimation {
+                                      self.refreshID = UUID()
+                                    }
+                      })){
+        Text(lesson.title ?? "")
       }
     }
 }
 
 
 
-
-
-
-//struct FilteredListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FilteredListView()
-//    }
-//}

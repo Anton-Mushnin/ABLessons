@@ -16,6 +16,7 @@ struct ContentView: View {
   @FetchRequest(entity: Lesson.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Lesson.dueDate, ascending: true)], predicate: NSPredicate(format: "dueDate < %@", Date() as CVarArg)) var dueLessons: FetchedResults<Lesson>
   @State var starsForLessons = 1
   @State var starsForExcercises = 1
+  @State var refreshID = UUID()
   
   @State var showLoad = false
   
@@ -61,9 +62,9 @@ struct ContentView: View {
               HStack {
                 Text("Уроки с оценкой ")
                 Spacer()
-                StarsEditView(stars: $starsForLessons)
-                }) {
-                    FilteredLessonsListView(filter: starsForLessons)
+                StarsEditView(stars: $starsForLessons).id(refreshID) //it does't autorefresh every tame CoreData changed
+              }) {
+              FilteredLessonsListView(filter: starsForLessons, refreshID: $refreshID) //so we have to do it when lesson disappear
             }
             Section(header:
               HStack {
