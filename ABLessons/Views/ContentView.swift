@@ -14,6 +14,7 @@ struct ContentView: View {
   @FetchRequest(entity: Course.entity(), sortDescriptors: [
     NSSortDescriptor(keyPath: \Course.lastAccessDate, ascending: false)]) var courses: FetchedResults<Course>
   @FetchRequest(entity: Lesson.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Lesson.dueDate, ascending: true)], predicate: NSPredicate(format: "dueDate < %@", Date() as CVarArg)) var dueLessons: FetchedResults<Lesson>
+  
   @State var starsForLessons = 1
   @State var starsForExcercises = 1
   @State var refreshID = UUID()
@@ -34,7 +35,6 @@ struct ContentView: View {
                }
              }
            }
-          
           List {
             if dueLessons.count > 0 {
               Section(header: Text("Пора повторить:")) {
@@ -71,7 +71,7 @@ struct ContentView: View {
                 Text("Упражнения с оценкой ")
                 Spacer()
                 StarsEditView(stars: $starsForExcercises)
-                })  {
+              }) {
               FilteredExcercisesListView(filter: starsForExcercises)
             }
           }.background(Color.foregroundColor.ignoresSafeArea())

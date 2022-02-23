@@ -9,26 +9,22 @@
 import SwiftUI
 
 struct FilteredExcercisesListView: View {
- // @State var filter: Int
-  
   @FetchRequest var tasksToRepeat: FetchedResults<LessonTask>
+  
   init(filter: Int) {
     _tasksToRepeat = FetchRequest<LessonTask>(entity: LessonTask.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \LessonTask.id, ascending: true)], predicate: NSPredicate(format: "lastStars = %i", filter as CVarArg))
   }
   
-  
-    var body: some View {
-      ForEach(tasksToRepeat, id: \.self) { task in
-        Text((task as LessonTask).textToTranslate ?? "")
-      }
+  var body: some View {
+    ForEach(tasksToRepeat, id: \.self) { task in
+      Text((task as LessonTask).textToTranslate ?? "")
     }
+  }
 }
 
 struct FilteredLessonsListView: View {
   @Binding var refreshID: UUID //to refresh parent view
   @Environment(\.managedObjectContext) var moc
-
- // @State var filter: Int
   @FetchRequest var lessonsToRepeat: FetchedResults<Lesson>
   
   init(filter: Int, refreshID: Binding<UUID>) {
@@ -47,6 +43,7 @@ struct FilteredLessonsListView: View {
         Text(lesson.title ?? "")
       }
     }
+  }
 }
 
 
