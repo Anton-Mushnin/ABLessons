@@ -15,24 +15,22 @@ import FirebaseFirestoreSwift
 
 struct FSLesson: Codable {
   @DocumentID var id: String?
-  var order = 0//: Int
-  var tasksNumber: Int? = 0//: Int
-  var textsNumber: Int? = 0//: Int
-  var title = ""//: String
+  var order = 0
+  var title = ""
   var tasks: [FSLessonTask]?
   var texts: [FSLessonText]?
 }
 
 struct FSLessonText: Codable {
-  var order = 0//: Int
-  var text = ""//: String
+  var order = 0
+  var text = ""
 }
 
 
 struct FSLessonTask: Codable {
-  var order = 0//: Int
-  var dictionary: String?// = ""//: String?
-  var textToTranslate = ""//: String
-  var translatedText = ""//: String
+  var order = 0
+  var dictionary: String?
+  var textToTranslate = ""
+  var translatedText = ""
   
 }
