@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct FilteredExcercisesListView: View {
+  @Environment(\.managedObjectContext) var moc
   @FetchRequest var tasksToRepeat: FetchedResults<LessonTask>
   
   init(filter: Int) {
@@ -16,8 +17,10 @@ struct FilteredExcercisesListView: View {
   }
   
   var body: some View {
-    ForEach(tasksToRepeat, id: \.self) { task in
-      Text((task as LessonTask).textToTranslate ?? "")
+    ForEach(tasksToRepeat.indices, id: \.self) { i in
+      NavigationLink(destination: RepeatingTasksView(viewModel: RepeatingTasksViewModel(tasks: Array(tasksToRepeat.dropFirst(i)) as [LessonTask], context: moc))) {
+        Text((tasksToRepeat[i] as LessonTask).textToTranslate ?? "").lineLimit(1)
+      }
     }
   }
 }

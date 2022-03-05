@@ -21,6 +21,8 @@
 		8F50388D27C01292001D2DB7 /* ScoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F50388C27C0128C001D2DB7 /* ScoreInfoView.swift */; };
 		8F5212E427C528E200051A34 /* FilteredListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5212E327C528E200051A34 /* FilteredListView.swift */; };
 		8F5212E727C5345800051A34 /* StarsEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5212E627C5345800051A34 /* StarsEditView.swift */; };
+		8F5212EB27C628EF00051A34 /* RepeatingTasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5212EA27C628EF00051A34 /* RepeatingTasksView.swift */; };
+		8F5212EE27C62AB600051A34 /* RepeatingTasksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5212ED27C62AB600051A34 /* RepeatingTasksViewModel.swift */; };
 		8F570D56255EAFF9007259D6 /* FirestoreDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F570D55255EAFF9007259D6 /* FirestoreDocument.swift */; };
 		8F70F7F82698483600744172 /* AuthorImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F70F7F72698483500744172 /* AuthorImageView.swift */; };
 		8F83169525B196CF00323AF5 /* Author+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F83168525B196CD00323AF5 /* Author+CoreDataProperties.swift */; };
@@ -78,6 +80,8 @@
 		8F50388C27C0128C001D2DB7 /* ScoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreInfoView.swift; sourceTree = "<group>"; };
 		8F5212E327C528E200051A34 /* FilteredListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredListView.swift; sourceTree = "<group>"; };
 		8F5212E627C5345800051A34 /* StarsEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsEditView.swift; sourceTree = "<group>"; };
+		8F5212EA27C628EF00051A34 /* RepeatingTasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTasksView.swift; sourceTree = "<group>"; };
+		8F5212ED27C62AB600051A34 /* RepeatingTasksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepeatingTasksViewModel.swift; sourceTree = "<group>"; };
 		8F570D55255EAFF9007259D6 /* FirestoreDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDocument.swift; sourceTree = "<group>"; };
 		8F70F7F72698483500744172 /* AuthorImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorImageView.swift; sourceTree = "<group>"; };
 		8F83168525B196CD00323AF5 /* Author+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Author+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 				8F90D3FC27A3FB1700019C8D /* LessonViewModel.swift */,
 				8F50388C27C0128C001D2DB7 /* ScoreInfoView.swift */,
 				8F5212E327C528E200051A34 /* FilteredListView.swift */,
+				8F5212EA27C628EF00051A34 /* RepeatingTasksView.swift */,
+				8F5212ED27C62AB600051A34 /* RepeatingTasksViewModel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -452,11 +458,13 @@
 				8F95F5EF2518B6A2006CE972 /* SceneDelegate.swift in Sources */,
 				8F570D56255EAFF9007259D6 /* FirestoreDocument.swift in Sources */,
 				8F1EECE126CE4C2A0086F233 /* HTMLStringView.swift in Sources */,
+				8F5212EB27C628EF00051A34 /* RepeatingTasksView.swift in Sources */,
 				8FFE8C04269C317E0027DC79 /* TaskTryExt.swift in Sources */,
 				8F95F62025223705006CE972 /* TaskView.swift in Sources */,
 				8F83169725B196CF00323AF5 /* LessonText+CoreDataClass.swift in Sources */,
 				8F95F5F42518B6A2006CE972 /* ContentView.swift in Sources */,
 				8FABEEE3257A6B92004F8376 /* TaskViewModel.swift in Sources */,
+				8F5212EE27C62AB600051A34 /* RepeatingTasksViewModel.swift in Sources */,
 				8F95F5F22518B6A2006CE972 /* ABLessons.xcdatamodeld in Sources */,
 				8F1EECD426CE4AA60086F233 /* AnimationsAndTransitions.swift in Sources */,
 				8F83169C25B196CF00323AF5 /* Author+CoreDataClass.swift in Sources */,
