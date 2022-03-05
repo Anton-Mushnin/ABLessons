@@ -194,18 +194,6 @@ class FirestoreCoursesViewModel: ObservableObject {
             try? document.data(as: FSLesson.self)
           }
         for (fsLesson) in fsLessons {
-          
-//          let newPath = "/authors/WrPCZrHHo1VgTEvJxfwO/courses/0swJI50shPuXmjSWEntw/lessons/"
-//          do {
-//            var newLesson = fsLesson
-//            newLesson.order = 109 - fsLesson.order
-//            _ = try db.collection(newPath).addDocument(from: newLesson)
-//          } catch {
-//            fatalError("Unable to add lesson: \(error.localizedDescription).")
-//          }
-//
-          
-          
           if !isLessonExists(id: fsLesson.id!) {
             let lesson = Lesson(context: moc)
             lesson.title = fsLesson.title
@@ -223,7 +211,7 @@ class FirestoreCoursesViewModel: ObservableObject {
             if let tasks = fsLesson.tasks {
               for (fsLessonTask) in tasks {
                 let lessonTask = LessonTask(context: self.moc)
-                lessonTask.id = NSUUID()//fsLessonTask.id
+                lessonTask.id = NSUUID()
                 lessonTask.textToTranslate = fsLessonTask.textToTranslate
                 lessonTask.translatedText = fsLessonTask.translatedText
                 lessonTask.dictionary = fsLessonTask.dictionary
@@ -248,47 +236,7 @@ class FirestoreCoursesViewModel: ObservableObject {
   }
     
   
-  
-  
-  public func addToCoreData() {
-    isDataLoading = true
-    
-    let course = getCourse()
-    let author = getAuthor(course: course)
-    author.addToCourses(course)
-    
-    if collection.count == 0 {
-      self.saveContext()
-      withAnimation {
-        success = true
-        isDataLoading = false
-      }
-    }
 
-    for (index, fsLesson) in collection.enumerated() {
-      if !isLessonExists(id: fsLesson.id!) {
-        let lesson = Lesson(context: moc)
-        lesson.title = fsLesson.title
-        lesson.id = fsLesson.id
-        lesson.order = fsLesson.order!
-        course.addToLessons(lesson)
-        let  lessonPath = path + "/" + fsLesson.id!
-        addTextsAndTasks(path: lessonPath, lesson: lesson)
-      } else {
-        if index == collection.count - 1 {
-          self.saveContext()
-          withAnimation {
-            success = true
-            isDataLoading = false
-          }
-        }
-      }
-      
-    }
-  }
-  
-  
-  
   
   private func getCoreDataObjectForID(forID id: String, entityName: String) -> NSManagedObject? {
     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -312,71 +260,15 @@ class FirestoreCoursesViewModel: ObservableObject {
       fetchRequest.includesSubentities = false
       fetchRequest.predicate = NSPredicate(format: "%K == %@", "id", id as CVarArg)
       var entitiesCount = 0
-
       do {
           entitiesCount = try moc.count(for: fetchRequest)
       }
       catch {
           print("error executing fetch request: \(error)")
       }
-
       return entitiesCount > 0
   }
   
-
-  
-  private func addTextsAndTasks(path: String, lesson: Lesson) {
-    db.collection(path + "/texts").getDocuments { querySnapshot, error in
-      if let error = error {
-        print("Error: \(error.localizedDescription)")
-      } else {
-        for document in querySnapshot!.documents {
-          if let order = document.data()["order"] as? Int16,
-            let text = document.data()["text"] as? String {
-              let lessonText = LessonText(context: self.moc)
-              lessonText.text = text
-              lessonText.order = order
-              lesson.addToTexts(lessonText)
-          }
-        }
-      }
-      self.addTasks(path: path + "/tasks", lesson: lesson)
-    }
-  }
-  
-  
-  private func addTasks(path: String, lesson: Lesson) {
-    db.collection(path).getDocuments { [self] querySnapshot, error in
-      if let error = error {
-        print("Error: \(error.localizedDescription)")
-      } else {
-        for document in querySnapshot!.documents {
-          if let order = document.data()["order"] as? Int16,
-            let textToTranslate = document.data()["textToTranslate"] as? String,
-            let translatedText = document.data()["translatedText"] as? String {
-              let lessonTask = LessonTask(context: self.moc)
-            //  lessonTask.id = document.documentID
-              lessonTask.textToTranslate = textToTranslate
-              lessonTask.translatedText = translatedText
-              lessonTask.order = order
-              lessonTask.dictionary = document.data()["dictionary"] as? String
-              if let dic = lessonTask.dictionary {
-                let replaced = dic.replacingOccurrences(of: "<br>", with: "\n")
-                lessonTask.dictionary = replaced
-              }
-              lesson.addToTasks(lessonTask)
-          }
-        }
-      }
-      if lesson.id == collection[collection.count - 1].id {
-        self.saveContext()
-        withAnimation {
-          success = true
-          isDataLoading = false
-        }
-      }
-    }
-  }
   
   
   func saveContext() {
@@ -386,7 +278,6 @@ class FirestoreCoursesViewModel: ObservableObject {
       print("Error saving managed object context: \(error)")
     }
   }
-
   
 }
 
