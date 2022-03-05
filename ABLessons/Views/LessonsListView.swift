@@ -37,7 +37,6 @@ struct LessonsListView: View {
     }.background(Color.foregroundColor.ignoresSafeArea())
     .onAppear {
       viewModel.updateList()
-      print("list view appear")
       }
   }
   
@@ -66,23 +65,6 @@ struct LessonsListView: View {
     }
   }
   
-  
-  
-  
+
 }
-
-
-
-
-
-//struct LessonListRow: View {
-//  var lesson: Lesson
-//  var body: some View {
-//    NavigationLink(destination: LessonView(viewModel: LessonViewModel(lesson: lesson, context: moc))) {
-//        Text(lesson.title ?? "").font(.callout)
-//      }
-//      .isDetailLink(true)
-//      .disabled(lesson.texts!.count == 0)
-//  }
-//}
 
