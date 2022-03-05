@@ -12,17 +12,13 @@ import Speech
 struct TaskView: View {
   @Binding var task: LessonTask?
   @Binding var taskTry: TaskTry
-//  @Binding var ready: Bool
-//  @Binding var viewModel: TaskViewModel
+
   @EnvironmentObject var viewModel: TaskViewModel
   
   @State var speechListening = false
   @State var speechRecognizing = false
   @State var isShowingPermittionAlert = false
-//  @State var showEditor = false
-//  @State var showColoredAnswer = false
-//  @State var showDictionary = false
-    
+
   @State private var speechRec: SpeechRec?
   
   private var isDictionaryAvailable: Bool {
@@ -163,7 +159,6 @@ struct TaskView: View {
           self.viewModel.isListening = false
             if let error = error {
               print("Error: \(error.localizedDescription)")
-           //   self.viewModel.taskTry.translatedText = "Ошибка распознавания речи: " + error.localizedDescription
               return
             }
           self.taskTry.translatedText = result

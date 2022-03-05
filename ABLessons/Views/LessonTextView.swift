@@ -23,29 +23,7 @@ struct LessonTextView: View {
   
 
   var body: some View {
-//    VStack (spacing: 0){
     ZStack {
-      
-//      NavigationLink(destination: LazyView(TaskView(viewModel: TaskViewModel(lesson: lesson, context: moc))), isActive: $goToTask) {
-//          EmptyView()
-//      }.isDetailLink(false)
-//       .toolbar {
-//          ToolbarItemGroup(placement: .navigationBarTrailing) {
-//            if isLastText {
-//              if !lesson.lessonTasksArray.isEmpty {
-//                Button("Упражнение") {
-//                  self.goToTask = true
-//                }
-//              } else {
-//                Button("Готово") {
-//                  self.lesson.markCompleted(context: moc)
-//                  self.presentationMode.wrappedValue.dismiss()
-//                }
-//              }
-//            }
-//          }
-//        }
-
       HTMLStringView(htmlContent: LessonTextView.htmlViewStyle + lesson.lessonTextsArray[textIndex].text! + schoolLink + "</div>" + "<br><br><br><br><br><br>" )
           .padding(.leading, 10)
           .padding(.trailing, 10)
@@ -99,29 +77,6 @@ struct LessonTextView: View {
   }
 }
 
-
-//struct pageControlView: View {
-//  var numberOfPages: Int
-//  @Binding var currentPage: Int
-//  
-//  var body: some View {
-//    HStack {
-//      ForEach (0 ..< numberOfPages) { page in
-//        Image(systemName: "circle.fill")
-//          .resizable()
-//          .frame(width: 8, height: 8)
-//          .foregroundColor(page == currentPage ? .fontColor : .inactiveColor)
-//      }
-//    }
-//  }
-//}
-//
-//
-//struct VisualEffectView: UIViewRepresentable {
-//    var effect: UIVisualEffect?
-//    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView { UIVisualEffectView() }
-//    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) { uiView.effect = effect }
-//}
  
 
 

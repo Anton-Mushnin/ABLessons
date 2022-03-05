@@ -9,9 +9,6 @@
 import SwiftUI
 
 struct RepeatingTasksView: View {
-//  @State var tasks: [LessonTask]
-//  @State var currentTask = 0
-//  @State var taskTry = TaskTry()
   @StateObject var viewModel: RepeatingTasksViewModel
   @StateObject var taskViewModel = TaskViewModel()
   @State var isShowingRightAnswer = false
@@ -49,8 +46,4 @@ struct RepeatingTasksView: View {
     }
 }
 
-//struct RepeatingLessonsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RepeatingLessonsView()
-//    }
-//}
+

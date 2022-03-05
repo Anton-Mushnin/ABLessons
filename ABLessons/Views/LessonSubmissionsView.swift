@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LessonSubmissionsView: View {
   
-//  var lesson: Lesson
   @Environment(\.presentationMode) var presentationMode
   var submissions: [LessonSubmission]
   
@@ -40,7 +39,6 @@ struct LessonSubmissionsView: View {
     }
   
     private func scoreToColor(score: Double) -> Color {
-      
       if score == 0 { return .white }
       let blue = 0.93 - (score - 40) / 70 * 0.5
       return Color(red: 1, green: 0.83, blue: blue)
