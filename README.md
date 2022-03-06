@@ -13,5 +13,7 @@ Student can (and encouraged to) input his answer by the voice. App checks the an
 App remindes to repeat lessons twice: after three and seven days.
 
 
-https://user-images.githubusercontent.com/37448691/156917345-d1981f72-dade-49a5-8c7e-880026b80031.mp4
+
+
+https://user-images.githubusercontent.com/37448691/156919537-ca071573-aace-46fd-a104-05033aa29368.mp4
 
