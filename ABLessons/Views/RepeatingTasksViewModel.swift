@@ -27,7 +27,6 @@ class RepeatingTasksViewModel: ObservableObject {
   
   func nextTask() -> Bool {
     taskTry.rightAnswer = task!.isAnswerRight(taskTry: taskTry)
- //   submission.addToTaskTries(taskTry)
     task!.lastStars = taskTry.selfMark
 
     if let lesson = task?.fromLesson {
